@@ -1,0 +1,72 @@
+@options
+@packages
+-classpath
+'/home/stbischof/.m2/repository/org/osgi/org.osgi.annotation.versioning/1.1.2/org.osgi.annotation.versioning-1.1.2.jar:/home/stbischof/.m2/repository/org/osgi/org.osgi.annotation.bundle/2.0.0/org.osgi.annotation.bundle-2.0.0.jar:/home/stbischof/.m2/repository/org/osgi/org.osgi.framework/1.10.0/org.osgi.framework-1.10.0.jar'
+-encoding
+'UTF-8'
+-protected
+--release
+8
+-sourcepath
+'/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java:/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/generated-sources/annotations'
+-author
+-bottom
+'Copyright &#169; 1980 <a href="https://www.eclipse.org/">Eclipse Foundation</a>. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs'
+-docencoding
+'UTF-8'
+-Xdoclint:none
+-doctitle
+'OSGi Specification repo for org.osgi.service.wireadmin 1.0.3-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/javase/8/docs/api' '/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/javadoc-bundle-options'
+-notimestamp
+-tag
+"Immutable:t:Immutable"
+-tag
+"ThreadSafe:t:ThreadSafe"
+-tag
+"NotThreadSafe:t:NotThreadSafe"
+-tag
+"GuardedBy:mf:Guarded By:"
+-tag
+"security:m:Required Permissions"
+-tag
+"noimplement:t:Consumers of this API must not implement this interface"
+-tag
+"implNote:a:Implementation Note:"
+-use
+-version
+-windowtitle
+'OSGi Specification repo for org.osgi.service.wireadmin 1.0.3-SNAPSHOT API'
+org.osgi.service.wireadmin
+/home/stbischof/.m2/repository/org/osgi/org.osgi.annotation.versioning/1.1.2/org.osgi.annotation.versioning-1.1.2.jar = 1634136809000
+/home/stbischof/.m2/repository/org/osgi/org.osgi.annotation.bundle/2.0.0/org.osgi.annotation.bundle-2.0.0.jar = 1644360733000
+/home/stbischof/.m2/repository/org/osgi/org.osgi.framework/1.10.0/org.osgi.framework-1.10.0.jar = 1607377478000
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java = 1790012152095
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/generated-sources/annotations = 1790091891014
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/element-list = 1790093993748
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/constant-values.html = 1790093993867
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/serialized-form.html = 1790093993929
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/overview-tree.html = 1790093994267
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/allclasses-index.html = 1790093994321
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/allpackages-index.html = 1790093994327
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/module-search-index.js = 1790093994328
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/package-search-index.js = 1790093994329
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/type-search-index.js = 1790093994330
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/member-search-index.js = 1790093994331
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/tag-search-index.js = 1790093994332
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/index-all.html = 1790093994389
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/search.html = 1790093994395
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/index.html = 1790093994398
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/help-doc.html = 1790093994438
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/stylesheet.css = 1790093994444
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/script.js = 1790093994447
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/copy.svg = 1790093994449
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/link.svg = 1790093994450
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/search.js = 1790093994456
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/search-page.js = 1790093994459
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/spec/org.osgi.spec.service.wireadmin/target/apidocs/javadoc.sh = 1790091934422

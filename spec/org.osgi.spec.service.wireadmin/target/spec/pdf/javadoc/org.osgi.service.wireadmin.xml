@@ -1,0 +1,1958 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.wireadmin"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.wireadmin">
+   <title>org.osgi.service.wireadmin</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.wireadmin-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.wireadmin-version.number">1.0</edition>
+   </info>
+   <para>
+Wire Admin Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+ {@code  Import-Package: org.osgi.service.wireadmin; version="[1.0,2.0)"}
+ </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+ {@code  Import-Package: org.osgi.service.wireadmin; version="[1.0,1.1)"}</para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.BasicEnvelope">
+                  <code>BasicEnvelope</code>
+               </link> - 
+{@code BasicEnvelope} is an implementation of the {@link Envelope} interface
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.Consumer">
+                  <code>Consumer</code>
+               </link> - 
+Data Consumer, a service that can receive updated values from
+ {@link Producer} services.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.Envelope">
+                  <code>Envelope</code>
+               </link> - 
+Identifies a contained value.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.Producer">
+                  <code>Producer</code>
+               </link> - 
+Data Producer, a service that can generate values to be used by
+ {@link Consumer} services.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.Wire">
+                  <code>Wire</code>
+               </link> - 
+A connection between a Producer service and a Consumer service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.WireAdmin">
+                  <code>WireAdmin</code>
+               </link> - 
+Wire Administration service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.WireAdminEvent">
+                  <code>WireAdminEvent</code>
+               </link> - 
+A Wire Admin Event.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.WireAdminListener">
+                  <code>WireAdminListener</code>
+               </link> - 
+Listener for Wire Admin Events.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.WireConstants">
+                  <code>WireConstants</code>
+               </link> - 
+Defines standard names for {@code Wire} properties, wire filter attributes,
+ Consumer and Producer service properties.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.WirePermission">
+                  <code>WirePermission</code>
+               </link> - 
+Permission for the scope of a {@code Wire} object.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="BasicEnvelope"
+            role="class"
+            xml:id="org.osgi.service.wireadmin.BasicEnvelope">
+      <title>public class BasicEnvelope<?line-break?> implements Envelope</title>
+      <para>
+{@code BasicEnvelope} is an implementation of the {@link Envelope} interface
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <section xreflabel="BasicEnvelope(Object,Object,String)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.BasicEnvelope.BasicEnvelope-Object-Object-String-">
+         <title>public  BasicEnvelope(Object value, Object identification, String scope)</title>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para>Content of this envelope, may be {@code null}.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>identification</title>
+            <para>Identifying object for this {@code Envelope}
+        object, must not be {@code null}</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>scope</title>
+            <para>Scope name for this object, must not be {@code null}</para>
+         </formalpara>
+         <para role="description">
+Constructor.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.Envelope">Envelope</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getIdentification()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.BasicEnvelope.getIdentification--">
+         <title>public Object getIdentification()</title>
+         <para role="description">
+Return the identification of this {@code Envelope} object.
+ 
+ An identification may be of any Java type. The type must be mutually
+ agreed between the Consumer and Producer services.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>an object which identifies the status item in the address space
+         of the composite producer, must not be null.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="UNRESOLVED">org.osgi.service.wireadmin.Envelope.getIdentification()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getScope()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.BasicEnvelope.getScope--">
+         <title>public String getScope()</title>
+         <para role="description">
+Return the scope name of this {@code Envelope} object.
+ 
+ Scope names are used to restrict the communication between the Producer
+ and Consumer services. Only {@code Envelopes} objects with a scope name
+ that is permitted for the Producer and the Consumer services must be
+ passed through a {@code Wire} object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the security scope for the status item, must not be null.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="UNRESOLVED">org.osgi.service.wireadmin.Envelope.getScope()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getValue()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.BasicEnvelope.getValue--">
+         <title>public Object getValue()</title>
+         <para role="description">
+Return the value associated with this {@code Envelope} object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the value of the status item, or {@code null} when no item is
+         associated with this object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="UNRESOLVED">org.osgi.service.wireadmin.Envelope.getValue()</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Consumer"
+            role="class"
+            xml:id="org.osgi.service.wireadmin.Consumer">
+      <title>public abstract Consumer</title>
+      <para>
+Data Consumer, a service that can receive updated values from
+ {@link Producer} services.
+ 
+ </para>
+      <para>
+ Service objects registered under the {@code Consumer} interface are expected
+ to consume values from a Producer service via a {@code Wire} object. A
+ Consumer service may poll the Producer service by calling the
+ {@link Wire#poll()} method. The Consumer service will also receive an updated
+ value when called at it's {@link #updated(Wire, Object)} method. The Producer
+ service should have coerced the value to be an instance of one of the types
+ specified by the {@link Wire#getFlavors()} method, or one of their
+ subclasses.
+ 
+ </para>
+      <para>
+ Consumer service objects must register with a {@code service.pid} and a
+ {@link WireConstants#WIREADMIN_CONSUMER_FLAVORS} property. It is recommended
+ that Consumer service objects also register with a
+ {@code service.description} property.
+ 
+ </para>
+      <para>
+ If an {@code Exception} is thrown by any of the {@code Consumer} methods, a
+ {@code WireAdminEvent} of type {@link WireAdminEvent#CONSUMER_EXCEPTION} is
+ broadcast by the Wire Admin service.
+ 
+ </para>
+      <para>
+ Security Considerations - Data consuming bundles will require
+ {@code ServicePermission[Consumer,REGISTER]}. In general, only the Wire Admin
+ service bundle should have this permission. Thus only the Wire Admin service
+ may directly call a Consumer service. Care must be taken in the sharing of
+ {@code Wire} objects with other bundles.
+ </para>
+      <para>
+ Consumer services must be registered with their scope when they can receive
+ different types of objects from the Producer service. The Consumer service
+ should have {@code WirePermission} for each of these scope names.</para>
+      <section xreflabel="producersConnected(Wire[])"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Consumer.producersConnected-Wire---">
+         <title>public abstract void producersConnected(Wire[][] wires)</title>
+         <formalpara role="parameter">
+            <title>wires</title>
+            <para>An array of the current and complete list of {@code Wire}
+        objects to which this Consumer service is connected. May be
+        {@code null} if the Consumer service is not currently connected to
+        any {@code Wire} objects.</para>
+         </formalpara>
+         <para role="description">
+Update the list of {@code Wire} objects to which this Consumer service is
+ connected.
+ 
+ </para>
+         <para>
+ This method is called when the Consumer service is first registered and
+ subsequently whenever a {@code Wire} associated with this Consumer
+ service becomes connected, is modified or becomes disconnected.
+ 
+ </para>
+         <para>
+ The Wire Admin service must call this method asynchronously. This implies
+ that implementors of Consumer can be assured that the callback will not
+ take place during registration when they execute the registration in a
+ synchronized method.</para>
+      </section>
+      <section xreflabel="updated(Wire,Object)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Consumer.updated-Wire-Object-">
+         <title>public abstract void updated(Wire wire, Object value)</title>
+         <formalpara role="parameter">
+            <title>wire</title>
+            <para>The {@code Wire} object which is delivering the updated
+        value.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para>The updated value. The value should be an instance of one of
+        the types specified by the {@link Wire#getFlavors()} method.</para>
+         </formalpara>
+         <para role="description">
+Update the value. This Consumer service is called by the {@code Wire}
+ object with an updated value from the Producer service.
+ 
+ </para>
+         <para>
+ Note: This method may be called by a {@code Wire} object prior to this
+ object being notified that it is connected to that {@code Wire} object
+ (via the {@link #producersConnected(Wire[])} method).
+ </para>
+         <para>
+ When the Consumer service can receive {@code Envelope} objects, it must
+ have registered all scope names together with the service object, and
+ each of those names must be permitted by the bundle's
+ {@code WirePermission}. If an {@code Envelope} object is delivered with
+ the {@code updated} method, then the Consumer service should assume that
+ the security check has been performed.</para>
+      </section>
+   </section>
+   <section xreflabel="Envelope"
+            role="class"
+            xml:id="org.osgi.service.wireadmin.Envelope">
+      <title>public abstract Envelope</title>
+      <para>
+Identifies a contained value.
+ 
+ An {@code Envelope} object combines a status value, an identification object
+ and a scope name. The {@code Envelope} object allows the use of standard Java
+ types when a Producer service can produce more than one kind of object. The
+ {@code Envelope} object allows the Consumer service to recognize the kind of
+ object that is received. For example, a door lock could be represented by a
+ {@code Boolean} object. If the {@code Producer} service would send such a
+ {@code Boolean} object, then the Consumer service would not know what door
+ the {@code Boolean} object represented. The {@code Envelope} object contains
+ an identification object so the Consumer service can discriminate between
+ different kinds of values. The identification object may be a simple
+ {@code String} object, but it can also be a domain specific object that is
+ mutually agreed by the Producer and the Consumer service. This object can
+ then contain relevant information that makes the identification easier.
+ </para>
+      <para>
+ The scope name of the envelope is used for security. The Wire object must
+ verify that any {@code Envelope} object send through the {@code update}
+ method or coming from the {@code poll} method has a scope name that matches
+ the permissions of both the Producer service and the Consumer service
+ involved. The wireadmin package also contains a class {@code BasicEnvelope}
+ that implements the methods of this interface.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.wireadmin.WirePermission">WirePermission</link>, <link linkend="org.osgi.service.wireadmin.BasicEnvelope">BasicEnvelope</link>
+         </para>
+      </formalpara>
+      <section xreflabel="getIdentification()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Envelope.getIdentification--">
+         <title>public abstract Object getIdentification()</title>
+         <para role="description">
+Return the identification of this {@code Envelope} object.
+ 
+ An identification may be of any Java type. The type must be mutually
+ agreed between the Consumer and Producer services.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>an object which identifies the status item in the address space
+         of the composite producer, must not be null.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getScope()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Envelope.getScope--">
+         <title>public abstract String getScope()</title>
+         <para role="description">
+Return the scope name of this {@code Envelope} object.
+ 
+ Scope names are used to restrict the communication between the Producer
+ and Consumer services. Only {@code Envelopes} objects with a scope name
+ that is permitted for the Producer and the Consumer services must be
+ passed through a {@code Wire} object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the security scope for the status item, must not be null.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getValue()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Envelope.getValue--">
+         <title>public abstract Object getValue()</title>
+         <para role="description">
+Return the value associated with this {@code Envelope} object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the value of the status item, or {@code null} when no item is
+         associated with this object.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Producer"
+            role="class"
+            xml:id="org.osgi.service.wireadmin.Producer">
+      <title>public abstract Producer</title>
+      <para>
+Data Producer, a service that can generate values to be used by
+ {@link Consumer} services.
+ 
+ </para>
+      <para>
+ Service objects registered under the Producer interface are expected to
+ produce values (internally generated or from external sensors). The value can
+ be of different types. When delivering a value to a {@code Wire} object, the
+ Producer service should coerce the value to be an instance of one of the
+ types specified by {@link Wire#getFlavors()}. The classes are specified in
+ order of preference.
+ 
+ </para>
+      <para>
+ When the data represented by the Producer object changes, this object should
+ send the updated value by calling the {@code update} method on each of
+ {@code Wire} objects passed in the most recent call to this object's
+ {@link #consumersConnected(Wire[])} method. These {@code Wire} objects will
+ pass the value on to the associated {@code Consumer} service object.
+ 
+ </para>
+      <para>
+ The Producer service may use the information in the {@code Wire} object's
+ properties to schedule the delivery of values to the {@code Wire} object.
+ 
+ </para>
+      <para>
+ Producer service objects must register with a {@code service.pid} and a
+ {@link WireConstants#WIREADMIN_PRODUCER_FLAVORS} property. It is recommended
+ that a Producer service object also registers with a
+ {@code service.description} property. Producer service objects must register
+ with a {@link WireConstants#WIREADMIN_PRODUCER_FILTERS} property if the
+ Producer service will be performing filtering instead of the {@code Wire}
+ object.
+ 
+ </para>
+      <para>
+ If an exception is thrown by a Producer object method, a
+ {@code WireAdminEvent} of type {@link WireAdminEvent#PRODUCER_EXCEPTION} is
+ broadcast by the Wire Admin service.
+ 
+ </para>
+      <para>
+ Security Considerations. Data producing bundles will require
+ {@code ServicePermission[Producer,REGISTER]} to register a Producer service.
+ In general, only the Wire Admin service should have
+ {@code ServicePermission[Producer,GET]}. Thus only the Wire Admin service may
+ directly call a Producer service. Care must be taken in the sharing of
+ {@code Wire} objects with other bundles.
+ </para>
+      <para>
+ Producer services must be registered with scope names when they can send
+ different types of objects (composite) to the Consumer service. The Producer
+ service should have {@code WirePermission} for each of these scope names.</para>
+      <section xreflabel="consumersConnected(Wire[])"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Producer.consumersConnected-Wire---">
+         <title>public abstract void consumersConnected(Wire[][] wires)</title>
+         <formalpara role="parameter">
+            <title>wires</title>
+            <para>An array of the current and complete list of {@code Wire}
+        objects to which this Producer service is connected. May be
+        {@code null} if the Producer is not currently connected to any
+        {@code Wire} objects.</para>
+         </formalpara>
+         <para role="description">
+Update the list of {@code Wire} objects to which this {@code Producer}
+ object is connected.
+ 
+ </para>
+         <para>
+ This method is called when the Producer service is first registered and
+ subsequently whenever a {@code Wire} associated with this Producer
+ becomes connected, is modified or becomes disconnected.
+ 
+ </para>
+         <para>
+ The Wire Admin service must call this method asynchronously. This implies
+ that implementors of a Producer service can be assured that the callback
+ will not take place during registration when they execute the
+ registration in a synchronized method.</para>
+      </section>
+      <section xreflabel="polled(Wire)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Producer.polled-Wire-">
+         <title>public abstract Object polled(Wire wire)</title>
+         <formalpara role="parameter">
+            <title>wire</title>
+            <para>The {@code Wire} object which is polling this service.</para>
+         </formalpara>
+         <para role="description">
+Return the current value of this {@code Producer} object.
+ 
+ </para>
+         <para>
+ This method is called by a {@code Wire} object in response to the
+ Consumer service calling the {@code Wire} object's {@code poll} method.
+ The Producer should coerce the value to be an instance of one of the
+ types specified by {@link Wire#getFlavors()}. The types are specified in
+ order of preference. The returned value should be as new or newer than
+ the last value furnished by this object.
+ 
+ </para>
+         <para>
+ Note: This method may be called by a {@code Wire} object prior to this
+ object being notified that it is connected to that {@code Wire} object
+ (via the {@link #consumersConnected(Wire[])} method).
+ </para>
+         <para>
+ If the Producer service returns an {@code Envelope} object that has an
+ impermissible scope name, then the Wire object must ignore (or remove)
+ the transfer.
+ </para>
+         <para>
+ If the {@code Wire} object has a scope set, the return value must be an
+ array of {@code Envelope} objects ({@code Envelope[]}). The {@code Wire}
+ object must have removed any {@code Envelope} objects that have a scope
+ name that is not in the Wire object's scope.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current value of the Producer service or {@code null} if the
+         value cannot be coerced into a compatible type. Or an array of
+         {@code Envelope} objects.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Wire"
+            role="class"
+            xml:id="org.osgi.service.wireadmin.Wire">
+      <title>public abstract Wire</title>
+      <para>
+A connection between a Producer service and a Consumer service.
+ 
+ </para>
+      <para>
+ A {@code Wire} object connects a Producer service to a Consumer service. Both
+ the Producer and Consumer services are identified by their unique
+ {@code service.pid} values. The Producer and Consumer services may
+ communicate with each other via {@code Wire} objects that connect them. The
+ Producer service may send updated values to the Consumer service by calling
+ the {@link #update(Object)} method. The Consumer service may request an
+ updated value from the Producer service by calling the {@link #poll()}
+ method.
+ 
+ </para>
+      <para>
+ A Producer service and a Consumer service may be connected through multiple
+ {@code Wire} objects.
+ 
+ </para>
+      <para>
+ Security Considerations. {@code Wire} objects are available to Producer and
+ Consumer services connected to a given {@code Wire} object and to bundles
+ which can access the {@code WireAdmin} service. A bundle must have
+ {@code ServicePermission[WireAdmin,GET]} to get the {@code WireAdmin} service
+ to access all {@code Wire} objects. A bundle registering a Producer service
+ or a Consumer service must have the appropriate
+ {@code ServicePermission[Consumer|Producer,REGISTER]} to register the service
+ and will be passed {@code Wire} objects when the service object's
+ {@code consumersConnected} or {@code producersConnected} method is called.
+ 
+ </para>
+      <para>
+ Scope. Each Wire object can have a scope set with the {@code setScope}
+ method. This method should be called by a Consumer service when it assumes a
+ Producer service that is composite (supports multiple information items). The
+ names in the scope must be verified by the {@code Wire} object before it is
+ used in communication. The semantics of the names depend on the Producer
+ service and must not be interpreted by the Wire Admin service.</para>
+      <formalpara role="parameter">
+         <title>No Implement</title>
+         <para>Consumers of this API must not implement this interface</para>
+      </formalpara>
+      <section xreflabel="getFlavors()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Wire.getFlavors--">
+         <title>public abstract Class&lt;?&gt;[][] getFlavors()</title>
+         <para role="description">
+Return the list of data types understood by the Consumer service
+ connected to this {@code Wire} object. Note that subclasses of the
+ classes in this list are acceptable data types as well.
+ 
+ </para>
+         <para>
+ The list is the value of the
+ {@link WireConstants#WIREADMIN_CONSUMER_FLAVORS} service property of the
+ Consumer service object connected to this object. If no such property was
+ registered or the type of the property value is not {@code Class[]}, this
+ method must return {@code null}.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An array containing the list of classes understood by the
+         Consumer service or {@code null} if the {@code Wire} is not
+         connected, or the consumer did not register a
+         {@link WireConstants#WIREADMIN_CONSUMER_FLAVORS} property or the
+         value of the property is not of type {@code Class[]}.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getLastValue()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Wire.getLastValue--">
+         <title>public abstract Object getLastValue()</title>
+         <para role="description">
+Return the last value sent through this {@code Wire} object.
+ 
+ </para>
+         <para>
+ The returned value is the most recent, valid value passed to the
+ {@link #update(Object)} method or returned by the {@link #poll()} method
+ of this object. If filtering is performed by this {@code Wire} object,
+ this methods returns the last value provided by the Producer service.
+ This value may be an {@code Envelope[]} when the Producer service uses
+ scoping. If the return value is an Envelope object (or array), it must be
+ verified that the Consumer service has the proper WirePermission to see
+ it.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The last value passed though this {@code Wire} object or
+         {@code null} if no valid values have been passed or the Consumer
+         service has no permission.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getProperties()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Wire.getProperties--">
+         <title>public abstract Dictionary&lt;String, Object&gt; getProperties()</title>
+         <para role="description">
+Return the wire properties for this {@code Wire} object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The properties for this {@code Wire} object. The returned
+         {@code Dictionary} must be read only.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getScope()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Wire.getScope--">
+         <title>public abstract String[][] getScope()</title>
+         <para role="description">
+Return the calculated scope of this {@code Wire} object.
+ 
+ The purpose of the {@code Wire} object's scope is to allow a Producer
+ and/or Consumer service to produce/consume different types over a single
+ {@code Wire} object (this was deemed necessary for efficiency reasons).
+ Both the Consumer service and the Producer service must set an array of
+ scope names (their scope) with the service registration property
+ {@code WIREADMIN_PRODUCER_SCOPE}, or {@code WIREADMIN_CONSUMER_SCOPE}
+ when they can produce multiple types. If a Producer service can produce
+ different types, it should set this property to the array of scope names
+ it can produce, the Consumer service must set the array of scope names it
+ can consume. The scope of a {@code Wire} object is defined as the
+ intersection of permitted scope names of the Producer service and
+ Consumer service.
+ </para>
+         <para>
+ If neither the Consumer, or the Producer service registers scope names
+ with its service registration, then the {@code Wire} object's scope must
+ be {@code null}.
+ </para>
+         <para>
+ The {@code Wire} object's scope must not change when a Producer or
+ Consumer services modifies its scope.
+ </para>
+         <para>
+ A scope name is permitted for a Producer service when the registering
+ bundle has {@code WirePermission[name,PRODUCE]}, and for a Consumer
+ service when the registering bundle has
+ {@code WirePermission[name,CONSUME]}.
+ </para>
+         <para>
+ If either Consumer service or Producer service has not set a
+ {@code WIREADMIN_*_SCOPE} property, then the returned value must be
+ {@code null}.
+ </para>
+         <para>
+ If the scope is set, the {@code Wire} object must enforce the scope names
+ when {@code Envelope} objects are used as a parameter to update or
+ returned from the {@code poll} method. The {@code Wire} object must then
+ remove all {@code Envelope} objects with a scope name that is not
+ permitted.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list of permitted scope names or null if the Produce or
+         Consumer service has set no scope names.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="hasScope(String)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Wire.hasScope-String-">
+         <title>public abstract boolean hasScope(String name)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The scope name</para>
+         </formalpara>
+         <para role="description">
+Return true if the given name is in this {@code Wire} object's scope.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>true if the name is listed in the permitted scope names</para>
+         </formalpara>
+      </section>
+      <section xreflabel="isConnected()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Wire.isConnected--">
+         <title>public abstract boolean isConnected()</title>
+         <para role="description">
+Return the connection state of this {@code Wire} object.
+ 
+ </para>
+         <para>
+ A {@code Wire} is connected after the Wire Admin service receives
+ notification that the Producer service and the Consumer service for this
+ {@code Wire} object are both registered. This method will return
+ {@code true} prior to notifying the Producer and Consumer services via
+ calls to their respective {@code consumersConnected} and
+ {@code producersConnected} methods.
+ </para>
+         <para>
+ A {@code WireAdminEvent} of type {@link WireAdminEvent#WIRE_CONNECTED}
+ must be broadcast by the Wire Admin service when the {@code Wire} becomes
+ connected.
+ 
+ </para>
+         <para>
+ A {@code Wire} object is disconnected when either the Consumer or
+ Producer service is unregistered or the {@code Wire} object is deleted.
+ </para>
+         <para>
+ A {@code WireAdminEvent} of type {@link WireAdminEvent#WIRE_DISCONNECTED}
+ must be broadcast by the Wire Admin service when the {@code Wire} becomes
+ disconnected.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>{@code true} if both the Producer and Consumer for this
+         {@code Wire} object are connected to the {@code Wire} object;
+         {@code false} otherwise.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="isValid()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Wire.isValid--">
+         <title>public abstract boolean isValid()</title>
+         <para role="description">
+Return the state of this {@code Wire} object.
+ 
+ </para>
+         <para>
+ A connected {@code Wire} must always be disconnected before becoming
+ invalid.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>{@code false} if this {@code Wire} object is invalid because it
+         has been deleted via {@link WireAdmin#deleteWire(Wire)};
+         {@code true} otherwise.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="poll()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Wire.poll--">
+         <title>public abstract Object poll()</title>
+         <para role="description">
+Poll for an updated value.
+ 
+ </para>
+         <para>
+ This methods is normally called by the Consumer service to request an
+ updated value from the Producer service connected to this {@code Wire}
+ object. This {@code Wire} object will call the
+ {@link Producer#polled(Wire)} method to obtain an updated value. If this
+ {@code Wire} object is not connected, then the Producer service must not
+ be called.
+ </para>
+         <para>
+ 
+ If this {@code Wire} object has a scope, then this method must return an
+ array of {@code Envelope} objects. The objects returned must match the
+ scope of this object. The {@code Wire} object must remove all
+ {@code Envelope} objects with a scope name that is not in the
+ {@code Wire} object's scope. Thus, the list of objects returned must only
+ contain {@code Envelope} objects with a permitted scope name. If the
+ array becomes empty, {@code null} must be returned.
+ 
+ </para>
+         <para>
+ A {@code WireAdminEvent} of type {@link WireAdminEvent#WIRE_TRACE} must
+ be broadcast by the Wire Admin service after the Producer service has
+ been successfully called.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A value whose type should be one of the types returned by
+         {@link #getFlavors()},{@code Envelope[]}, or {@code null} if the
+         {@code Wire} object is not connected, the Producer service threw
+         an exception, or the Producer service returned a value which is
+         not an instance of one of the types returned by
+         {@link #getFlavors()}.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="update(Object)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.Wire.update-Object-">
+         <title>public abstract void update(Object value)</title>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para>The updated value. The value should be an instance of one of
+        the types returned by {@link #getFlavors()}.</para>
+         </formalpara>
+         <para role="description">
+Update the value.
+ 
+ </para>
+         <para>
+ This methods is called by the Producer service to notify the Consumer
+ service connected to this {@code Wire} object of an updated value.
+ </para>
+         <para>
+ If the properties of this {@code Wire} object contain a
+ {@link WireConstants#WIREADMIN_FILTER} property, then filtering is
+ performed. If the Producer service connected to this {@code Wire} object
+ was registered with the service property
+ {@link WireConstants#WIREADMIN_PRODUCER_FILTERS}, the Producer service
+ will perform the filtering according to the rules specified for the
+ filter. Otherwise, this {@code Wire} object will perform the filtering of
+ the value.
+ </para>
+         <para>
+ If no filtering is done, or the filter indicates the updated value should
+ be delivered to the Consumer service, then this {@code Wire} object must
+ call the {@link Consumer#updated(Wire, Object)} method with the updated
+ value. If this {@code Wire} object is not connected, then the Consumer
+ service must not be called and the value is ignored.
+ </para>
+         <para>
+ If the value is an {@code Envelope} object, and the scope name is not
+ permitted, then the {@code Wire} object must ignore this call and not
+ transfer the object to the Consumer service.
+ 
+ </para>
+         <para>
+ A {@code WireAdminEvent} of type {@link WireAdminEvent#WIRE_TRACE} must
+ be broadcast by the Wire Admin service after the Consumer service has
+ been successfully called.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.WireConstants.WIREADMIN_FILTER">WireConstants.WIREADMIN_FILTER</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="WireAdmin"
+            role="class"
+            xml:id="org.osgi.service.wireadmin.WireAdmin">
+      <title>public abstract WireAdmin</title>
+      <para>
+Wire Administration service.
+ 
+ </para>
+      <para>
+ This service can be used to create {@code Wire} objects connecting a Producer
+ service and a Consumer service. {@code Wire} objects also have wire
+ properties that may be specified when a {@code Wire} object is created. The
+ Producer and Consumer services may use the {@code Wire} object's properties
+ to manage or control their interaction. The use of {@code Wire} object's
+ properties by a Producer or Consumer services is optional.
+ 
+ </para>
+      <para>
+ Security Considerations. A bundle must have
+ {@code ServicePermission[WireAdmin,GET]} to get the Wire Admin service to
+ create, modify, find, and delete {@code Wire} objects.</para>
+      <formalpara role="parameter">
+         <title>No Implement</title>
+         <para>Consumers of this API must not implement this interface</para>
+      </formalpara>
+      <section xreflabel="createWire(String,String,Dictionary)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WireAdmin.createWire-String-String-Dictionary-">
+         <title>public abstract Wire createWire(String producerPID, String consumerPID, Dictionary&lt;String, ?&gt; properties)</title>
+         <formalpara role="parameter">
+            <title>producerPID</title>
+            <para>The {@code service.pid} of the Producer service to be
+        connected to the {@code Wire} object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>consumerPID</title>
+            <para>The {@code service.pid} of the Consumer service to be
+        connected to the {@code Wire} object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>properties</title>
+            <para>The {@code Wire} object's properties. This argument may
+        be {@code null} if the caller does not wish to define any
+        {@code Wire} object's properties.</para>
+         </formalpara>
+         <para role="description">
+Create a new {@code Wire} object that connects a Producer service to a
+ Consumer service.
+ 
+ The Producer service and Consumer service do not have to be registered
+ when the {@code Wire} object is created.
+ 
+ </para>
+         <para>
+ The {@code Wire} configuration data must be persistently stored. All
+ {@code Wire} connections are reestablished when the {@code WireAdmin}
+ service is registered. A {@code Wire} can be permanently removed by using
+ the {@link #deleteWire(Wire)} method.
+ 
+ </para>
+         <para>
+ The {@code Wire} object's properties must have case insensitive
+ {@code String} objects as keys (like the Framework). However, the case of
+ the key must be preserved.
+ 
+ </para>
+         <para>
+ The {@code WireAdmin} service must automatically add the following
+ {@code Wire} properties:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>{@link WireConstants#WIREADMIN_PID} set to the value of the
+ {@code Wire} object's persistent identity (PID). This value is generated
+ by the Wire Admin service when a {@code Wire} object is created.</para>
+            </listitem>
+            <listitem>
+               <para>{@link WireConstants#WIREADMIN_PRODUCER_PID} set to the value of
+ Producer service's PID.</para>
+            </listitem>
+            <listitem>
+               <para>{@link WireConstants#WIREADMIN_CONSUMER_PID} set to the value of
+ Consumer service's PID.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ If the {@code properties} argument already contains any of these keys,
+ then the supplied values are replaced with the values assigned by the
+ Wire Admin service.
+ 
+ </para>
+         <para>
+ The Wire Admin service must broadcast a {@code WireAdminEvent} of type
+ {@link WireAdminEvent#WIRE_CREATED} after the new {@code Wire} object
+ becomes available from {@link #getWires(String)}.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The {@code Wire} object for this connection.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If {@code properties} contains
+         invalid wire types or case variants of the same key name.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="deleteWire(Wire)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WireAdmin.deleteWire-Wire-">
+         <title>public abstract void deleteWire(Wire wire)</title>
+         <formalpara role="parameter">
+            <title>wire</title>
+            <para>The {@code Wire} object which is to be deleted.</para>
+         </formalpara>
+         <para role="description">
+Delete a {@code Wire} object.
+ 
+ </para>
+         <para>
+ The {@code Wire} object representing a connection between a Producer
+ service and a Consumer service must be removed. The persistently stored
+ configuration data for the {@code Wire} object must destroyed. The
+ {@code Wire} object's method {@link Wire#isValid()} will return
+ {@code false} after it is deleted.
+ 
+ </para>
+         <para>
+ The Wire Admin service must broadcast a {@code WireAdminEvent} of type
+ {@link WireAdminEvent#WIRE_DELETED} after the {@code Wire} object becomes
+ invalid.</para>
+      </section>
+      <section xreflabel="getWires(String)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WireAdmin.getWires-String-">
+         <title>public abstract Wire[][] getWires(String filter) throws InvalidSyntaxException</title>
+         <formalpara role="parameter">
+            <title>filter</title>
+            <para>Filter string to select {@code Wire} objects or
+        {@code null} to select all {@code Wire} objects.</para>
+         </formalpara>
+         <para role="description">
+Return the {@code Wire} objects that match the given {@code filter}.
+ 
+ </para>
+         <para>
+ The list of available {@code Wire} objects is matched against the
+ specified {@code filter}.{@code Wire} objects which match the
+ {@code filter} must be returned. These {@code Wire} objects are not
+ necessarily connected. The Wire Admin service should not return invalid
+ {@code Wire} objects, but it is possible that a {@code Wire} object is
+ deleted after it was placed in the list.
+ 
+ </para>
+         <para>
+ The filter matches against the {@code Wire} object's properties including
+ {@link WireConstants#WIREADMIN_PRODUCER_PID},
+ {@link WireConstants#WIREADMIN_CONSUMER_PID} and
+ {@link WireConstants#WIREADMIN_PID}.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An array of {@code Wire} objects which match the {@code filter}
+         or {@code null} if no {@code Wire} objects match the
+         {@code filter}.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>InvalidSyntaxException</code>– If the specified
+         {@code filter} has an invalid syntax.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="UNRESOLVED">org.osgi.framework.Filter</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="updateWire(Wire,Dictionary)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WireAdmin.updateWire-Wire-Dictionary-">
+         <title>public abstract void updateWire(Wire wire, Dictionary&lt;String, ?&gt; properties)</title>
+         <formalpara role="parameter">
+            <title>wire</title>
+            <para>The {@code Wire} object which is to be updated.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>properties</title>
+            <para>The new {@code Wire} object's properties or
+        {@code null} if no properties are required.</para>
+         </formalpara>
+         <para role="description">
+Update the properties of a {@code Wire} object.
+ 
+ The persistently stored configuration data for the {@code Wire} object is
+ updated with the new properties and then the Consumer and Producer
+ services will be called at the respective
+ {@link Consumer#producersConnected(Wire[])} and
+ {@link Producer#consumersConnected(Wire[])} methods.
+ 
+ </para>
+         <para>
+ The Wire Admin service must broadcast a {@code WireAdminEvent} of type
+ {@link WireAdminEvent#WIRE_UPDATED} after the updated properties are
+ available from the {@code Wire} object.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If {@code properties} contains
+         invalid wire types or case variants of the same key name.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="WireAdminEvent"
+            role="class"
+            xml:id="org.osgi.service.wireadmin.WireAdminEvent">
+      <title>public class WireAdminEvent</title>
+      <para>
+A Wire Admin Event.
+ 
+ </para>
+      <para>
+ {@code WireAdminEvent} objects are delivered to all registered
+ {@code WireAdminListener} service objects which specify an interest in the
+ {@code WireAdminEvent} type. Events must be delivered in chronological order
+ with respect to each listener. For example, a {@code WireAdminEvent} of type
+ {@link #WIRE_CONNECTED} must be delivered before a {@code WireAdminEvent} of
+ type {@link #WIRE_DISCONNECTED} for a particular {@code Wire} object.
+ 
+ </para>
+      <para>
+ A type code is used to identify the type of event. The following event types
+ are defined:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>{@link #WIRE_CREATED}</para>
+         </listitem>
+         <listitem>
+            <para>{@link #WIRE_CONNECTED}</para>
+         </listitem>
+         <listitem>
+            <para>{@link #WIRE_UPDATED}</para>
+         </listitem>
+         <listitem>
+            <para>{@link #WIRE_TRACE}</para>
+         </listitem>
+         <listitem>
+            <para>{@link #WIRE_DISCONNECTED}</para>
+         </listitem>
+         <listitem>
+            <para>{@link #WIRE_DELETED}</para>
+         </listitem>
+         <listitem>
+            <para>{@link #PRODUCER_EXCEPTION}</para>
+         </listitem>
+         <listitem>
+            <para>{@link #CONSUMER_EXCEPTION}</para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ Additional event types may be defined in the future.
+ 
+ </para>
+      <para>
+ Event type values must be unique and disjoint bit values. Event types must be
+ defined as a bit in a 32 bit integer and can thus be bitwise ORed together.
+ </para>
+      <para>
+ Security Considerations. {@code WireAdminEvent} objects contain {@code Wire}
+ objects. Care must be taken in the sharing of {@code Wire} objects with other
+ bundles.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.wireadmin.WireAdminListener">WireAdminListener</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <section xreflabel="CONSUMER_EXCEPTION"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.CONSUMER_EXCEPTION">
+         <title>public static final int CONSUMER_EXCEPTION = 2</title>
+         <para>
+A Consumer service method has thrown an exception.
+ 
+ </para>
+         <para>
+ This {@code WireAdminEvent} type indicates that a Consumer service method
+ has thrown an exception. The {@link WireAdminEvent#getThrowable()} method
+ will return the exception that the Consumer service method raised.
+ 
+ </para>
+         <para>
+ The value of {@code CONSUMER_EXCEPTION} is 0x00000002.</para>
+      </section>
+      <section xreflabel="PRODUCER_EXCEPTION"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.PRODUCER_EXCEPTION">
+         <title>public static final int PRODUCER_EXCEPTION = 1</title>
+         <para>
+A Producer service method has thrown an exception.
+ 
+ </para>
+         <para>
+ This {@code WireAdminEvent} type indicates that a Producer service method
+ has thrown an exception. The {@link WireAdminEvent#getThrowable()} method
+ will return the exception that the Producer service method raised.
+ 
+ </para>
+         <para>
+ The value of {@code PRODUCER_EXCEPTION} is 0x00000001.</para>
+      </section>
+      <section xreflabel="WIRE_CONNECTED"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.WIRE_CONNECTED">
+         <title>public static final int WIRE_CONNECTED = 32</title>
+         <para>
+The {@code WireAdminEvent} type that indicates that an existing
+ {@code Wire} object has become connected.
+ 
+ The Consumer object and the Producer object that are associated with the
+ {@code Wire} object have both been registered and the {@code Wire} object
+ is connected. See {@link Wire#isConnected()} for a description of the
+ connected state. This event may come before the
+ {@code producersConnected} and {@code consumersConnected} method have
+ returned or called to allow synchronous delivery of the events. Both
+ methods can cause other {@code WireAdminEvent} s to take place and
+ requiring this event to be send before these methods are returned would
+ mandate asynchronous delivery.
+ 
+ </para>
+         <para>
+ The value of {@code WIRE_CONNECTED} is 0x00000020.</para>
+      </section>
+      <section xreflabel="WIRE_CREATED"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.WIRE_CREATED">
+         <title>public static final int WIRE_CREATED = 4</title>
+         <para>
+A {@code Wire} has been created.
+ 
+ </para>
+         <para>
+ This {@code WireAdminEvent} type that indicates that a new {@code Wire}
+ object has been created.
+ 
+ An event is broadcast when
+ {@link WireAdmin#createWire(String, String, java.util.Dictionary)} is
+ called. The {@link WireAdminEvent#getWire()} method will return the
+ {@code Wire} object that has just been created.
+ 
+ </para>
+         <para>
+ The value of {@code WIRE_CREATED} is 0x00000004.</para>
+      </section>
+      <section xreflabel="WIRE_DELETED"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.WIRE_DELETED">
+         <title>public static final int WIRE_DELETED = 16</title>
+         <para>
+A {@code Wire} has been deleted.
+ 
+ </para>
+         <para>
+ This {@code WireAdminEvent} type that indicates that an existing wire has
+ been deleted.
+ 
+ An event is broadcast when {@link WireAdmin#deleteWire(Wire)} is called
+ with a valid wire. {@link WireAdminEvent#getWire()} will return the
+ {@code Wire} object that has just been deleted.
+ 
+ </para>
+         <para>
+ The value of {@code WIRE_DELETED} is 0x00000010.</para>
+      </section>
+      <section xreflabel="WIRE_DISCONNECTED"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.WIRE_DISCONNECTED">
+         <title>public static final int WIRE_DISCONNECTED = 64</title>
+         <para>
+The {@code WireAdminEvent} type that indicates that an existing
+ {@code Wire} object has become disconnected.
+ 
+ The Consumer object or/and Producer object is/are unregistered breaking
+ the connection between the two. See {@link Wire#isConnected} for a
+ description of the connected state.
+ 
+ </para>
+         <para>
+ The value of {@code WIRE_DISCONNECTED} is 0x00000040.</para>
+      </section>
+      <section xreflabel="WIRE_TRACE"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.WIRE_TRACE">
+         <title>public static final int WIRE_TRACE = 128</title>
+         <para>
+The {@code WireAdminEvent} type that indicates that a new value is
+ transferred over the {@code Wire} object.
+ 
+ This event is sent after the Consumer service has been notified by
+ calling the {@link Consumer#updated(Wire, Object)} method or the Consumer
+ service requested a new value with the {@link Wire#poll()} method. This
+ is an advisory event meaning that when this event is received, another
+ update may already have occurred and this the {@link Wire#getLastValue()}
+ method returns a newer value then the value that was communicated for
+ this event.
+ 
+ </para>
+         <para>
+ The value of {@code WIRE_TRACE} is 0x00000080.</para>
+      </section>
+      <section xreflabel="WIRE_UPDATED"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.WIRE_UPDATED">
+         <title>public static final int WIRE_UPDATED = 8</title>
+         <para>
+A {@code Wire} has been updated.
+ 
+ </para>
+         <para>
+ This {@code WireAdminEvent} type that indicates that an existing
+ {@code Wire} object has been updated with new properties.
+ 
+ An event is broadcast when
+ {@link WireAdmin#updateWire(Wire, java.util.Dictionary)} is called with a
+ valid wire. The {@link WireAdminEvent#getWire()} method will return the
+ {@code Wire} object that has just been updated.
+ 
+ </para>
+         <para>
+ The value of {@code WIRE_UPDATED} is 0x00000008.</para>
+      </section>
+      <section xreflabel="WireAdminEvent(ServiceReference,int,Wire,Throwable)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.WireAdminEvent-ServiceReference-int-Wire-Throwable-">
+         <title>public  WireAdminEvent(ServiceReference&lt;WireAdmin&gt; reference, int type, Wire wire, Throwable exception)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The {@code ServiceReference} object of the Wire Admin
+        service that created this event.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>The event type. See {@link #getType()}.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wire</title>
+            <para>The {@code Wire} object associated with this event.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>exception</title>
+            <para>An exception associated with this event. This may be
+        {@code null} if no exception is associated with this event.</para>
+         </formalpara>
+         <para role="description">
+Constructs a {@code WireAdminEvent} object from the given
+ {@code ServiceReference} object, event type, {@code Wire} object and
+ exception.
+   </para>
+      </section>
+      <section xreflabel="getServiceReference()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.getServiceReference--">
+         <title>public ServiceReference&lt;WireAdmin&gt; getServiceReference()</title>
+         <para role="description">
+Return the {@code ServiceReference} object of the Wire Admin service that
+ created this event.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The {@code ServiceReference} object for the Wire Admin service
+         that created this event.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getThrowable()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.getThrowable--">
+         <title>public Throwable getThrowable()</title>
+         <para role="description">
+Returns the exception associated with the event, if any.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An exception or {@code null} if no exception is associated with
+         this event.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getType()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.getType--">
+         <title>public int getType()</title>
+         <para role="description">
+Return the type of this event.
+ </para>
+         <para>
+ The type values are:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>{@link #WIRE_CREATED}</para>
+            </listitem>
+            <listitem>
+               <para>{@link #WIRE_CONNECTED}</para>
+            </listitem>
+            <listitem>
+               <para>{@link #WIRE_UPDATED}</para>
+            </listitem>
+            <listitem>
+               <para>{@link #WIRE_TRACE}</para>
+            </listitem>
+            <listitem>
+               <para>{@link #WIRE_DISCONNECTED}</para>
+            </listitem>
+            <listitem>
+               <para>{@link #WIRE_DELETED}</para>
+            </listitem>
+            <listitem>
+               <para>{@link #PRODUCER_EXCEPTION}</para>
+            </listitem>
+            <listitem>
+               <para>{@link #CONSUMER_EXCEPTION}</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The type of this event.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getWire()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WireAdminEvent.getWire--">
+         <title>public Wire getWire()</title>
+         <para role="description">
+Return the {@code Wire} object associated with this event.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The {@code Wire} object associated with this event or
+         {@code null} when no {@code Wire} object is associated with the
+         event.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="WireAdminListener"
+            role="class"
+            xml:id="org.osgi.service.wireadmin.WireAdminListener">
+      <title>public abstract WireAdminListener</title>
+      <para>
+Listener for Wire Admin Events.
+ 
+ </para>
+      <para>
+ {@code WireAdminListener} objects are registered with the Framework service
+ registry and are notified with a {@code WireAdminEvent} object when an event
+ is broadcast.
+ </para>
+      <para>
+ {@code WireAdminListener} objects can inspect the received
+ {@code WireAdminEvent} object to determine its type, the {@code Wire} object
+ with which it is associated, and the Wire Admin service that broadcasts the
+ event.
+ 
+ </para>
+      <para>
+ {@code WireAdminListener} objects must be registered with a service property
+ {@link WireConstants#WIREADMIN_EVENTS} whose value is a bitwise OR of all the
+ event types the listener is interested in receiving.
+ </para>
+      <para>
+ For example:
+ 
+ </para>
+      <programlisting> Integer mask = Integer.valueOf(WIRE_TRACE | WIRE_CONNECTED | WIRE_DISCONNECTED);
+ Hashtable ht = new Hashtable();
+ ht.put(WIREADMIN_EVENTS, mask);
+ context.registerService(WireAdminListener.class.getName(), this, ht);</programlisting>
+      <para>
+ 
+ If a {@code WireAdminListener} object is registered without a service
+ property {@link WireConstants#WIREADMIN_EVENTS}, then the
+ {@code WireAdminListener} will receive no events.
+ 
+ </para>
+      <para>
+ Security Considerations. Bundles wishing to monitor {@code WireAdminEvent}
+ objects will require {@code ServicePermission[WireAdminListener,REGISTER]} to
+ register a {@code WireAdminListener} service. Since {@code WireAdminEvent}
+ objects contain {@code Wire} objects, care must be taken in assigning
+ permission to register a {@code WireAdminListener} service.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.wireadmin.WireAdminEvent">WireAdminEvent</link>
+         </para>
+      </formalpara>
+      <section xreflabel="wireAdminEvent(WireAdminEvent)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WireAdminListener.wireAdminEvent-WireAdminEvent-">
+         <title>public abstract void wireAdminEvent(WireAdminEvent event)</title>
+         <formalpara role="parameter">
+            <title>event</title>
+            <para>The {@code WireAdminEvent} object.</para>
+         </formalpara>
+         <para role="description">
+Receives notification of a broadcast {@code WireAdminEvent} object.
+ 
+ The event object will be of an event type specified in this
+ {@code WireAdminListener} service's
+ {@link WireConstants#WIREADMIN_EVENTS} service property.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="WireConstants"
+            role="class"
+            xml:id="org.osgi.service.wireadmin.WireConstants">
+      <title>public abstract WireConstants</title>
+      <para>
+Defines standard names for {@code Wire} properties, wire filter attributes,
+ Consumer and Producer service properties.
+   </para>
+      <formalpara role="parameter">
+         <title>No Implement</title>
+         <para>Consumers of this API must not implement this interface</para>
+      </formalpara>
+      <section xreflabel="WIREADMIN_CONSUMER_COMPOSITE"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_CONSUMER_COMPOSITE">
+         <title>public static final String WIREADMIN_CONSUMER_COMPOSITE = "wireadmin.consumer.composite"</title>
+         <para>
+A service registration property for a Consumer service that is composite.
+ It contains the names of the composite Producer services it can cooperate
+ with. Interoperability exists when any name in this array matches any
+ name in the array set by the Producer service. The type of this property
+ must be {@code String[]}.
+   </para>
+      </section>
+      <section xreflabel="WIREADMIN_CONSUMER_FLAVORS"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_CONSUMER_FLAVORS">
+         <title>public static final String WIREADMIN_CONSUMER_FLAVORS = "wireadmin.consumer.flavors"</title>
+         <para>
+Service Registration property (named {@code wireadmin.consumer.flavors})
+ specifying the list of data types understood by this Consumer service.
+ 
+ </para>
+         <para>
+ The Consumer service object must be registered with this service
+ property. The list must be in the order of preference with the first type
+ being the most preferred. The value of the property must be of type
+ {@code Class[]}.</para>
+      </section>
+      <section xreflabel="WIREADMIN_CONSUMER_PID"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_CONSUMER_PID">
+         <title>public static final String WIREADMIN_CONSUMER_PID = "wireadmin.consumer.pid"</title>
+         <para>
+{@code Wire} property key (named {@code wireadmin.consumer.pid})
+ specifying the {@code service.pid} of the associated Consumer service.
+ 
+ </para>
+         <para>
+ This wire property is automatically set by the Wire Admin service. The
+ value of the property must be of type {@code String}.</para>
+      </section>
+      <section xreflabel="WIREADMIN_CONSUMER_SCOPE"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_CONSUMER_SCOPE">
+         <title>public static final String WIREADMIN_CONSUMER_SCOPE = "wireadmin.consumer.scope"</title>
+         <para>
+Service registration property key (named {@code wireadmin.consumer.scope}
+ ) specifying a list of names that may be used to define the scope of this
+ {@code Wire} object. A {@code Consumer} service should set this service
+ property when it can produce more than one kind of value. This property
+ is only used during registration, modifying the property must not have
+ any effect of the {@code Wire} object's scope. Each name in the given
+ list mist have {@code WirePermission[name,CONSUME]} or else is ignored.
+ The type of this service registration property must be {@code String[]}.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.Wire.getScope--">Wire.getScope()</link>, <link linkend="UNRESOLVED">WIREADMIN_PRODUCER_SCOPE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="WIREADMIN_EVENTS"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_EVENTS">
+         <title>public static final String WIREADMIN_EVENTS = "wireadmin.events"</title>
+         <para>
+Service Registration property (named {@code wireadmin.events}) specifying
+ the {@code WireAdminEvent} type of interest to a Wire Admin Listener
+ service. The value of the property is a bitwise OR of all the
+ {@code WireAdminEvent} types the Wire Admin Listener service wishes to
+ receive and must be of type {@code Integer}.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.WireAdminEvent">WireAdminEvent</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="WIREADMIN_FILTER"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_FILTER">
+         <title>public static final String WIREADMIN_FILTER = "wireadmin.filter"</title>
+         <para>
+{@code Wire} property key (named {@code wireadmin.filter}) specifying a
+ filter used to control the delivery rate of data between the Producer and
+ the Consumer service.
+ 
+ </para>
+         <para>
+ This property should contain a filter as described in the {@code Filter}
+ class. The filter can be used to specify when an updated value from the
+ Producer service should be delivered to the Consumer service. In many
+ cases the Consumer service does not need to receive the data with the
+ same rate that the Producer service can generate data. This property can
+ be used to control the delivery rate.
+ </para>
+         <para>
+ The filter can use a number of predefined attributes that can be used to
+ control the delivery of new data values. If the filter produces a match
+ upon the wire filter attributes, the Consumer service should be notified
+ of the updated data value.
+ </para>
+         <para>
+ If the Producer service was registered with the
+ {@link #WIREADMIN_PRODUCER_FILTERS} service property indicating that the
+ Producer service will perform the data filtering then the {@code Wire}
+ object will not perform data filtering. Otherwise, the {@code Wire}
+ object must perform basic filtering. Basic filtering includes supporting
+ the following standard wire filter attributes:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>{@link #WIREVALUE_CURRENT} - Current value</para>
+            </listitem>
+            <listitem>
+               <para>{@link #WIREVALUE_PREVIOUS} - Previous value</para>
+            </listitem>
+            <listitem>
+               <para>{@link #WIREVALUE_DELTA_ABSOLUTE} - Absolute delta</para>
+            </listitem>
+            <listitem>
+               <para>{@link #WIREVALUE_DELTA_RELATIVE} - Relative delta</para>
+            </listitem>
+            <listitem>
+               <para>{@link #WIREVALUE_ELAPSED} - Elapsed time</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="UNRESOLVED">org.osgi.framework.Filter</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="WIREADMIN_PID"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_PID">
+         <title>public static final String WIREADMIN_PID = "wireadmin.pid"</title>
+         <para>
+{@code Wire} property key (named {@code wireadmin.pid}) specifying the
+ persistent identity (PID) of this {@code Wire} object.
+ 
+ </para>
+         <para>
+ Each {@code Wire} object has a PID to allow unique and persistent
+ identification of a specific {@code Wire} object. The PID must be
+ generated by the {@link WireAdmin} service when the {@code Wire} object
+ is created.
+ 
+ </para>
+         <para>
+ This wire property is automatically set by the Wire Admin service. The
+ value of the property must be of type {@code String}.</para>
+      </section>
+      <section xreflabel="WIREADMIN_PRODUCER_COMPOSITE"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_PRODUCER_COMPOSITE">
+         <title>public static final String WIREADMIN_PRODUCER_COMPOSITE = "wireadmin.producer.composite"</title>
+         <para>
+A service registration property for a Producer service that is composite.
+ It contains the names of the composite Consumer services it can
+ interoperate with. Interoperability exists when any name in this array
+ matches any name in the array set by the Consumer service. The type of
+ this property must be {@code String[]}.
+   </para>
+      </section>
+      <section xreflabel="WIREADMIN_PRODUCER_FILTERS"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_PRODUCER_FILTERS">
+         <title>public static final String WIREADMIN_PRODUCER_FILTERS = "wireadmin.producer.filters"</title>
+         <para>
+Service Registration property (named {@code wireadmin.producer.filters}).
+ A {@code Producer} service registered with this property indicates to the
+ Wire Admin service that the Producer service implements at least the
+ filtering as described for the {@link #WIREADMIN_FILTER} property. If the
+ Producer service is not registered with this property, the {@code Wire}
+ object must perform the basic filtering as described in
+ {@link #WIREADMIN_FILTER}.
+ 
+ </para>
+         <para>
+ The type of the property value is not relevant. Only its presence is
+ relevant.</para>
+      </section>
+      <section xreflabel="WIREADMIN_PRODUCER_FLAVORS"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_PRODUCER_FLAVORS">
+         <title>public static final String WIREADMIN_PRODUCER_FLAVORS = "wireadmin.producer.flavors"</title>
+         <para>
+Service Registration property (named {@code wireadmin.producer.flavors})
+ specifying the list of data types available from this Producer service.
+ 
+ </para>
+         <para>
+ The Producer service object should be registered with this service
+ property.
+ 
+ </para>
+         <para>
+ The value of the property must be of type {@code Class[]}.</para>
+      </section>
+      <section xreflabel="WIREADMIN_PRODUCER_PID"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_PRODUCER_PID">
+         <title>public static final String WIREADMIN_PRODUCER_PID = "wireadmin.producer.pid"</title>
+         <para>
+{@code Wire} property key (named {@code wireadmin.producer.pid})
+ specifying the {@code service.pid} of the associated Producer service.
+ 
+ </para>
+         <para>
+ This wire property is automatically set by the WireAdmin service. The
+ value of the property must be of type {@code String}.</para>
+      </section>
+      <section xreflabel="WIREADMIN_PRODUCER_SCOPE"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_PRODUCER_SCOPE">
+         <title>public static final String WIREADMIN_PRODUCER_SCOPE = "wireadmin.producer.scope"</title>
+         <para>
+Service registration property key (named {@code wireadmin.producer.scope}
+ ) specifying a list of names that may be used to define the scope of this
+ {@code Wire} object. A Producer service should set this service property
+ when it can produce more than one kind of value. This property is only
+ used during registration, modifying the property must not have any effect
+ of the {@code Wire} object's scope. Each name in the given list mist have
+ {@code WirePermission[name,PRODUCE]} or else is ignored. The type of this
+ service registration property must be {@code String[]}.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.wireadmin.Wire.getScope--">Wire.getScope()</link>, <link linkend="UNRESOLVED">WIREADMIN_CONSUMER_SCOPE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="WIREADMIN_SCOPE_ALL"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREADMIN_SCOPE_ALL">
+         <title>public static final String[][] WIREADMIN_SCOPE_ALL</title>
+         <para>
+Matches all scope names.
+   </para>
+      </section>
+      <section xreflabel="WIREVALUE_CURRENT"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREVALUE_CURRENT">
+         <title>public static final String WIREVALUE_CURRENT = "wirevalue.current"</title>
+         <para>
+{@code Wire} object's filter attribute (named {@code wirevalue.current})
+ representing the current value.
+   </para>
+      </section>
+      <section xreflabel="WIREVALUE_DELTA_ABSOLUTE"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREVALUE_DELTA_ABSOLUTE">
+         <title>public static final String WIREVALUE_DELTA_ABSOLUTE = "wirevalue.delta.absolute"</title>
+         <para>
+{@code Wire} object's filter attribute (named
+ {@code wirevalue.delta.absolute}) representing the absolute delta. The
+ absolute (always positive) difference between the last update and the
+ current value (only when numeric). This attribute must not be used when
+ the values are not numeric.
+   </para>
+      </section>
+      <section xreflabel="WIREVALUE_DELTA_RELATIVE"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREVALUE_DELTA_RELATIVE">
+         <title>public static final String WIREVALUE_DELTA_RELATIVE = "wirevalue.delta.relative"</title>
+         <para>
+{@code Wire} object's filter attribute (named
+ {@code wirevalue.delta.relative}) representing the relative delta. The
+ relative difference is |{@code previous}-{@code current} |/|
+ {@code current}| (only when numeric). This attribute must not be used
+ when the values are not numeric.
+   </para>
+      </section>
+      <section xreflabel="WIREVALUE_ELAPSED"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREVALUE_ELAPSED">
+         <title>public static final String WIREVALUE_ELAPSED = "wirevalue.elapsed"</title>
+         <para>
+{@code Wire} object's filter attribute (named {@code wirevalue.elapsed})
+ representing the elapsed time, in ms, between this filter evaluation and
+ the last update of the {@code Consumer} service.
+   </para>
+      </section>
+      <section xreflabel="WIREVALUE_PREVIOUS"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WireConstants.WIREVALUE_PREVIOUS">
+         <title>public static final String WIREVALUE_PREVIOUS = "wirevalue.previous"</title>
+         <para>
+{@code Wire} object's filter attribute (named {@code wirevalue.previous})
+ representing the previous value.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="WirePermission"
+            role="class"
+            xml:id="org.osgi.service.wireadmin.WirePermission">
+      <title>public final class WirePermission<?line-break?> extends BasicPermission</title>
+      <para>
+Permission for the scope of a {@code Wire} object. When a {@code Envelope}
+ object is used for communication with the {@code poll} or {@code update}
+ method, and the scope is set, then the {@code Wire} object must verify that
+ the Consumer service has {@code WirePermission[name,CONSUME]} and the
+ Producer service has {@code WirePermission[name,PRODUCE]} for all names in
+ the scope.
+ </para>
+      <para>
+ The names are compared with the normal rules for permission names. This means
+ that they may end with a "*" to indicate wildcards. E.g. Door.* indicates all
+ scope names starting with the string "Door". The last period is required due
+ to the implementations of the {@code BasicPermission} class.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="CONSUME"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WirePermission.CONSUME">
+         <title>public static final String CONSUME = "consume"</title>
+         <para>
+The action string for the {@code consume} action.
+   </para>
+      </section>
+      <section xreflabel="PRODUCE"
+               role="field"
+               xml:id="org.osgi.service.wireadmin.WirePermission.PRODUCE">
+         <title>public static final String PRODUCE = "produce"</title>
+         <para>
+The action string for the {@code produce} action.
+   </para>
+      </section>
+      <section xreflabel="WirePermission(String,String)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WirePermission.WirePermission-String-String-">
+         <title>public  WirePermission(String name, String actions)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>Wire name.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>actions</title>
+            <para>{@code produce}, {@code consume} (canonical order).</para>
+         </formalpara>
+         <para role="description">
+Create a new WirePermission with the given name (may be wildcard) and
+ actions.
+   </para>
+      </section>
+      <section xreflabel="equals(Object)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WirePermission.equals-Object-">
+         <title>public boolean equals(Object obj)</title>
+         <formalpara role="parameter">
+            <title>obj</title>
+            <para>The object to test for equality.</para>
+         </formalpara>
+         <para role="description">
+Determines the equality of two {@code WirePermission} objects.
+ 
+ Checks that specified object has the same name and actions as this
+ {@code WirePermission} object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>true if {@code obj} is a {@code WirePermission}, and has the same
+         name and actions as this {@code WirePermission} object;
+         {@code false} otherwise.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getActions()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WirePermission.getActions--">
+         <title>public String getActions()</title>
+         <para role="description">
+Returns the canonical string representation of the actions. Always
+ returns present actions in the following order: {@code produce},
+ {@code consume}.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The canonical string representation of the actions.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="hashCode()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WirePermission.hashCode--">
+         <title>public int hashCode()</title>
+         <para role="description">
+Returns the hash code value for this object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Hash code value for this object.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="implies(Permission)"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WirePermission.implies-Permission-">
+         <title>public boolean implies(Permission p)</title>
+         <formalpara role="parameter">
+            <title>p</title>
+            <para>The permission to check against.</para>
+         </formalpara>
+         <para role="description">
+Checks if this {@code WirePermission} object {@code implies} the
+ specified permission.
+ </para>
+         <para>
+ More specifically, this method returns {@code true} if:
+ </para>
+         <para/>
+         <itemizedlist>
+            <listitem>
+               <para>
+                  <emphasis>p</emphasis> is an instanceof the {@code WirePermission} class,</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <emphasis>p</emphasis>'s actions are a proper subset of this object's actions, and</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <emphasis>p</emphasis>'s name is implied by this object's name. For example,
+ {@code java.*} implies {@code java.home}.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>{@code true} if the specified permission is implied by this
+         object; {@code false} otherwise.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="newPermissionCollection()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WirePermission.newPermissionCollection--">
+         <title>public PermissionCollection newPermissionCollection()</title>
+         <para role="description">
+Returns a new {@code PermissionCollection} object for storing
+ {@code WirePermission} objects.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new {@code PermissionCollection} object suitable for storing
+         {@code WirePermission} objects.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.service.wireadmin.WirePermission.toString--">
+         <title>public String toString()</title>
+         <para role="description">
+Returns a string describing this {@code WirePermission}. The convention
+ is to specify the class name, the permission name, and the actions in the
+ following format: '(org.osgi.service.wireadmin.WirePermission
+ "name" "actions")'.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>information about this {@code Permission} object.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>
