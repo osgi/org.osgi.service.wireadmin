@@ -1,0 +1,1765 @@
+<?xml version='1.0' encoding='utf-8'?>
+<top>
+  <package name='org.osgi.service.wireadmin' fqn='org.osgi.service.wireadmin' qn='org.osgi.service.wireadmin'>
+<org.osgi.annotation.versioning.Version><value>1.0</value>
+</org.osgi.annotation.versioning.Version>
+   <lead>
+Wire Admin Package Version 1.0.
+   </lead>
+   <description>
+Wire Admin Package Version 1.0.
+ 
+ <p>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ 
+ </p><p>
+ Example import for consumers using the API in this package:
+ </p><p>
+ {@code  Import-Package: org.osgi.service.wireadmin; version="[1.0,2.0)"}
+ </p><p>
+ Example import for providers implementing the API in this package:
+ </p><p>
+ {@code  Import-Package: org.osgi.service.wireadmin; version="[1.0,1.1)"}</p>
+   </description>
+<author>@author $Id: 817e24d9d065364e80b0d71675c2ec360025e97b $</author>
+  <class name='BasicEnvelope' fqn='org.osgi.service.wireadmin.BasicEnvelope' qn='BasicEnvelope' package='org.osgi.service.wireadmin' typeParam='' modifiers='public class' kind='CLASS'>
+   <lead>
+{@code BasicEnvelope} is an implementation of the {@link Envelope} interface
+   </lead>
+   <description>
+{@code BasicEnvelope} is an implementation of the {@link Envelope} interface
+   </description>
+<Immutable></Immutable><author>@author $Id: b9b13e2e6a7da87146d73fcd4dc3b4ec5f5cc4a9 $</author>
+<implements name='Envelope' fqn='org.osgi.service.wireadmin.Envelope' qn='Envelope' package='org.osgi.service.wireadmin' local='org.osgi.service.wireadmin.BasicEnvelope'/>
+    <method name='BasicEnvelope' fqn='org.osgi.service.wireadmin.BasicEnvelope.BasicEnvelope' qn='BasicEnvelope.BasicEnvelope(Object,Object,String)' package='org.osgi.service.wireadmin' typeArgs='' modifiers='public' signature='(java.lang.Object,java.lang.Object,java.lang.String)' flatSignature='(Object,Object,String)' isConstructor='true'>
+   <lead>
+Constructor.
+   </lead>
+   <description>
+Constructor.
+   </description>
+
+<param name='value'>Content of this envelope, may be {@code null}.</param>
+<param name='identification'>Identifying object for this {@code Envelope}
+        object, must not be {@code null}</param>
+<param name='scope'>Scope name for this object, must not be {@code null}</param>
+
+
+
+<a href='#Envelope'>Envelope</a>
+    <parameter name='value' dimension='' typeName='Object' fqn='java.lang.Object' varargs='false'/>
+    <parameter name='identification' dimension='' typeName='Object' fqn='java.lang.Object' varargs='false'/>
+    <parameter name='scope' dimension='' typeName='String' fqn='java.lang.String' varargs='false'/>
+     </method>
+    <method name='getValue' fqn='org.osgi.service.wireadmin.BasicEnvelope.getValue' qn='BasicEnvelope.getValue()' package='org.osgi.service.wireadmin' modifiers='public' typeName='Object' qualifiedTypeName='java.lang.Object' typeArgs='' dimension='' signature='()' flatSignature='()'>
+<java.lang.Override></java.lang.Override>
+   <lead>
+Return the value associated with this {@code Envelope} object.
+   </lead>
+   <description>
+Return the value associated with this {@code Envelope} object.
+   </description>
+
+
+<return>the value of the status item, or {@code null} when no item is
+         associated with this object.</return>
+
+
+<a href='#org.osgi.service.wireadmin.Envelope.getValue()'>org.osgi.service.wireadmin.Envelope.getValue()</a>
+     </method>
+    <method name='getIdentification' fqn='org.osgi.service.wireadmin.BasicEnvelope.getIdentification' qn='BasicEnvelope.getIdentification()' package='org.osgi.service.wireadmin' modifiers='public' typeName='Object' qualifiedTypeName='java.lang.Object' typeArgs='' dimension='' signature='()' flatSignature='()'>
+<java.lang.Override></java.lang.Override>
+   <lead>
+Return the identification of this {@code Envelope} object.
+   </lead>
+   <description>
+Return the identification of this {@code Envelope} object.
+ 
+ An identification may be of any Java type. The type must be mutually
+ agreed between the Consumer and Producer services.
+   </description>
+
+
+<return>an object which identifies the status item in the address space
+         of the composite producer, must not be null.</return>
+
+
+<a href='#org.osgi.service.wireadmin.Envelope.getIdentification()'>org.osgi.service.wireadmin.Envelope.getIdentification()</a>
+     </method>
+    <method name='getScope' fqn='org.osgi.service.wireadmin.BasicEnvelope.getScope' qn='BasicEnvelope.getScope()' package='org.osgi.service.wireadmin' modifiers='public' typeName='String' qualifiedTypeName='java.lang.String' typeArgs='' dimension='' signature='()' flatSignature='()'>
+<java.lang.Override></java.lang.Override>
+   <lead>
+Return the scope name of this {@code Envelope} object.
+   </lead>
+   <description>
+Return the scope name of this {@code Envelope} object.
+ 
+ Scope names are used to restrict the communication between the Producer
+ and Consumer services. Only {@code Envelopes} objects with a scope name
+ that is permitted for the Producer and the Consumer services must be
+ passed through a {@code Wire} object.
+   </description>
+
+
+<return>the security scope for the status item, must not be null.</return>
+
+
+<a href='#org.osgi.service.wireadmin.Envelope.getScope()'>org.osgi.service.wireadmin.Envelope.getScope()</a>
+     </method>
+  </class>
+  <class name='Consumer' fqn='org.osgi.service.wireadmin.Consumer' qn='Consumer' package='org.osgi.service.wireadmin' typeParam='' modifiers='public abstract' interface='yes' kind='INTERFACE'>
+   <lead>
+Data Consumer, a service that can receive updated values from
+ {@link Producer} services.
+   </lead>
+   <description>
+Data Consumer, a service that can receive updated values from
+ {@link Producer} services.
+ 
+ <p>
+ Service objects registered under the {@code Consumer} interface are expected
+ to consume values from a Producer service via a {@code Wire} object. A
+ Consumer service may poll the Producer service by calling the
+ {@link Wire#poll()} method. The Consumer service will also receive an updated
+ value when called at it's {@link #updated(Wire, Object)} method. The Producer
+ service should have coerced the value to be an instance of one of the types
+ specified by the {@link Wire#getFlavors()} method, or one of their
+ subclasses.
+ 
+ </p><p>
+ Consumer service objects must register with a {@code service.pid} and a
+ {@link WireConstants#WIREADMIN_CONSUMER_FLAVORS} property. It is recommended
+ that Consumer service objects also register with a
+ {@code service.description} property.
+ 
+ </p><p>
+ If an {@code Exception} is thrown by any of the {@code Consumer} methods, a
+ {@code WireAdminEvent} of type {@link WireAdminEvent#CONSUMER_EXCEPTION} is
+ broadcast by the Wire Admin service.
+ 
+ </p><p>
+ Security Considerations - Data consuming bundles will require
+ {@code ServicePermission[Consumer,REGISTER]}. In general, only the Wire Admin
+ service bundle should have this permission. Thus only the Wire Admin service
+ may directly call a Consumer service. Care must be taken in the sharing of
+ {@code Wire} objects with other bundles.
+ </p><p>
+ Consumer services must be registered with their scope when they can receive
+ different types of objects from the Producer service. The Consumer service
+ should have {@code WirePermission} for each of these scope names.</p>
+   </description>
+<author>@author $Id: c05b97ddab6e57b2cf71956bba2e08df7070372c $</author>
+    <method name='updated' fqn='org.osgi.service.wireadmin.Consumer.updated' qn='Consumer.updated(Wire,Object)' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='void' qualifiedTypeName='void' typeArgs='' dimension='' signature='(org.osgi.service.wireadmin.Wire,java.lang.Object)' flatSignature='(Wire,Object)'>
+   <lead>
+Update the value.
+   </lead>
+   <description>
+Update the value. This Consumer service is called by the {@code Wire}
+ object with an updated value from the Producer service.
+ 
+ <p>
+ Note: This method may be called by a {@code Wire} object prior to this
+ object being notified that it is connected to that {@code Wire} object
+ (via the {@link #producersConnected(Wire[])} method).
+ </p><p>
+ When the Consumer service can receive {@code Envelope} objects, it must
+ have registered all scope names together with the service object, and
+ each of those names must be permitted by the bundle's
+ {@code WirePermission}. If an {@code Envelope} object is delivered with
+ the {@code updated} method, then the Consumer service should assume that
+ the security check has been performed.</p>
+   </description>
+
+<param name='wire'>The {@code Wire} object which is delivering the updated
+        value.</param>
+<param name='value'>The updated value. The value should be an instance of one of
+        the types specified by the {@link Wire#getFlavors()} method.</param>
+
+
+
+
+    <parameter name='wire' dimension='' typeName='Wire' fqn='org.osgi.service.wireadmin.Wire' varargs='false'/>
+    <parameter name='value' dimension='' typeName='Object' fqn='java.lang.Object' varargs='false'/>
+     </method>
+    <method name='producersConnected' fqn='org.osgi.service.wireadmin.Consumer.producersConnected' qn='Consumer.producersConnected(Wire[])' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='void' qualifiedTypeName='void' typeArgs='' dimension='' signature='(org.osgi.service.wireadmin.Wire[])' flatSignature='(Wire[])'>
+   <lead>
+Update the list of {@code Wire} objects to which this Consumer service is
+ connected.
+   </lead>
+   <description>
+Update the list of {@code Wire} objects to which this Consumer service is
+ connected.
+ 
+ <p>
+ This method is called when the Consumer service is first registered and
+ subsequently whenever a {@code Wire} associated with this Consumer
+ service becomes connected, is modified or becomes disconnected.
+ 
+ </p><p>
+ The Wire Admin service must call this method asynchronously. This implies
+ that implementors of Consumer can be assured that the callback will not
+ take place during registration when they execute the registration in a
+ synchronized method.</p>
+   </description>
+
+<param name='wires'>An array of the current and complete list of {@code Wire}
+        objects to which this Consumer service is connected. May be
+        {@code null} if the Consumer service is not currently connected to
+        any {@code Wire} objects.</param>
+
+
+
+
+    <parameter name='wires' dimension='[]' typeName='Wire[]' fqn='org.osgi.service.wireadmin.Wire[]' varargs='false'/>
+     </method>
+  </class>
+  <class name='Envelope' fqn='org.osgi.service.wireadmin.Envelope' qn='Envelope' package='org.osgi.service.wireadmin' typeParam='' modifiers='public abstract' interface='yes' kind='INTERFACE'>
+   <lead>
+Identifies a contained value.
+   </lead>
+   <description>
+Identifies a contained value.
+ 
+ An {@code Envelope} object combines a status value, an identification object
+ and a scope name. The {@code Envelope} object allows the use of standard Java
+ types when a Producer service can produce more than one kind of object. The
+ {@code Envelope} object allows the Consumer service to recognize the kind of
+ object that is received. For example, a door lock could be represented by a
+ {@code Boolean} object. If the {@code Producer} service would send such a
+ {@code Boolean} object, then the Consumer service would not know what door
+ the {@code Boolean} object represented. The {@code Envelope} object contains
+ an identification object so the Consumer service can discriminate between
+ different kinds of values. The identification object may be a simple
+ {@code String} object, but it can also be a domain specific object that is
+ mutually agreed by the Producer and the Consumer service. This object can
+ then contain relevant information that makes the identification easier.
+ <p>
+ The scope name of the envelope is used for security. The Wire object must
+ verify that any {@code Envelope} object send through the {@code update}
+ method or coming from the {@code poll} method has a scope name that matches
+ the permissions of both the Producer service and the Consumer service
+ involved. The wireadmin package also contains a class {@code BasicEnvelope}
+ that implements the methods of this interface.</p>
+   </description>
+<a href='#WirePermission'>WirePermission</a><a href='#BasicEnvelope'>BasicEnvelope</a><author>@author $Id: 1097117b923f6cf4a2fca4568c8864bc7111293f $</author>
+    <method name='getValue' fqn='org.osgi.service.wireadmin.Envelope.getValue' qn='Envelope.getValue()' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='Object' qualifiedTypeName='java.lang.Object' typeArgs='' dimension='' signature='()' flatSignature='()'>
+   <lead>
+Return the value associated with this {@code Envelope} object.
+   </lead>
+   <description>
+Return the value associated with this {@code Envelope} object.
+   </description>
+
+
+<return>the value of the status item, or {@code null} when no item is
+         associated with this object.</return>
+
+
+
+     </method>
+    <method name='getIdentification' fqn='org.osgi.service.wireadmin.Envelope.getIdentification' qn='Envelope.getIdentification()' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='Object' qualifiedTypeName='java.lang.Object' typeArgs='' dimension='' signature='()' flatSignature='()'>
+   <lead>
+Return the identification of this {@code Envelope} object.
+   </lead>
+   <description>
+Return the identification of this {@code Envelope} object.
+ 
+ An identification may be of any Java type. The type must be mutually
+ agreed between the Consumer and Producer services.
+   </description>
+
+
+<return>an object which identifies the status item in the address space
+         of the composite producer, must not be null.</return>
+
+
+
+     </method>
+    <method name='getScope' fqn='org.osgi.service.wireadmin.Envelope.getScope' qn='Envelope.getScope()' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='String' qualifiedTypeName='java.lang.String' typeArgs='' dimension='' signature='()' flatSignature='()'>
+   <lead>
+Return the scope name of this {@code Envelope} object.
+   </lead>
+   <description>
+Return the scope name of this {@code Envelope} object.
+ 
+ Scope names are used to restrict the communication between the Producer
+ and Consumer services. Only {@code Envelopes} objects with a scope name
+ that is permitted for the Producer and the Consumer services must be
+ passed through a {@code Wire} object.
+   </description>
+
+
+<return>the security scope for the status item, must not be null.</return>
+
+
+
+     </method>
+  </class>
+  <class name='Producer' fqn='org.osgi.service.wireadmin.Producer' qn='Producer' package='org.osgi.service.wireadmin' typeParam='' modifiers='public abstract' interface='yes' kind='INTERFACE'>
+   <lead>
+Data Producer, a service that can generate values to be used by
+ {@link Consumer} services.
+   </lead>
+   <description>
+Data Producer, a service that can generate values to be used by
+ {@link Consumer} services.
+ 
+ <p>
+ Service objects registered under the Producer interface are expected to
+ produce values (internally generated or from external sensors). The value can
+ be of different types. When delivering a value to a {@code Wire} object, the
+ Producer service should coerce the value to be an instance of one of the
+ types specified by {@link Wire#getFlavors()}. The classes are specified in
+ order of preference.
+ 
+ </p><p>
+ When the data represented by the Producer object changes, this object should
+ send the updated value by calling the {@code update} method on each of
+ {@code Wire} objects passed in the most recent call to this object's
+ {@link #consumersConnected(Wire[])} method. These {@code Wire} objects will
+ pass the value on to the associated {@code Consumer} service object.
+ 
+ </p><p>
+ The Producer service may use the information in the {@code Wire} object's
+ properties to schedule the delivery of values to the {@code Wire} object.
+ 
+ </p><p>
+ Producer service objects must register with a {@code service.pid} and a
+ {@link WireConstants#WIREADMIN_PRODUCER_FLAVORS} property. It is recommended
+ that a Producer service object also registers with a
+ {@code service.description} property. Producer service objects must register
+ with a {@link WireConstants#WIREADMIN_PRODUCER_FILTERS} property if the
+ Producer service will be performing filtering instead of the {@code Wire}
+ object.
+ 
+ </p><p>
+ If an exception is thrown by a Producer object method, a
+ {@code WireAdminEvent} of type {@link WireAdminEvent#PRODUCER_EXCEPTION} is
+ broadcast by the Wire Admin service.
+ 
+ </p><p>
+ Security Considerations. Data producing bundles will require
+ {@code ServicePermission[Producer,REGISTER]} to register a Producer service.
+ In general, only the Wire Admin service should have
+ {@code ServicePermission[Producer,GET]}. Thus only the Wire Admin service may
+ directly call a Producer service. Care must be taken in the sharing of
+ {@code Wire} objects with other bundles.
+ </p><p>
+ Producer services must be registered with scope names when they can send
+ different types of objects (composite) to the Consumer service. The Producer
+ service should have {@code WirePermission} for each of these scope names.</p>
+   </description>
+<author>@author $Id: f755e2c895adcc2878b01619c8b744a1a9ed1f06 $</author>
+    <method name='polled' fqn='org.osgi.service.wireadmin.Producer.polled' qn='Producer.polled(Wire)' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='Object' qualifiedTypeName='java.lang.Object' typeArgs='' dimension='' signature='(org.osgi.service.wireadmin.Wire)' flatSignature='(Wire)'>
+   <lead>
+Return the current value of this {@code Producer} object.
+   </lead>
+   <description>
+Return the current value of this {@code Producer} object.
+ 
+ <p>
+ This method is called by a {@code Wire} object in response to the
+ Consumer service calling the {@code Wire} object's {@code poll} method.
+ The Producer should coerce the value to be an instance of one of the
+ types specified by {@link Wire#getFlavors()}. The types are specified in
+ order of preference. The returned value should be as new or newer than
+ the last value furnished by this object.
+ 
+ </p><p>
+ Note: This method may be called by a {@code Wire} object prior to this
+ object being notified that it is connected to that {@code Wire} object
+ (via the {@link #consumersConnected(Wire[])} method).
+ </p><p>
+ If the Producer service returns an {@code Envelope} object that has an
+ impermissible scope name, then the Wire object must ignore (or remove)
+ the transfer.
+ </p><p>
+ If the {@code Wire} object has a scope set, the return value must be an
+ array of {@code Envelope} objects ({@code Envelope[]}). The {@code Wire}
+ object must have removed any {@code Envelope} objects that have a scope
+ name that is not in the Wire object's scope.</p>
+   </description>
+
+<param name='wire'>The {@code Wire} object which is polling this service.</param>
+
+<return>The current value of the Producer service or {@code null} if the
+         value cannot be coerced into a compatible type. Or an array of
+         {@code Envelope} objects.</return>
+
+
+
+    <parameter name='wire' dimension='' typeName='Wire' fqn='org.osgi.service.wireadmin.Wire' varargs='false'/>
+     </method>
+    <method name='consumersConnected' fqn='org.osgi.service.wireadmin.Producer.consumersConnected' qn='Producer.consumersConnected(Wire[])' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='void' qualifiedTypeName='void' typeArgs='' dimension='' signature='(org.osgi.service.wireadmin.Wire[])' flatSignature='(Wire[])'>
+   <lead>
+Update the list of {@code Wire} objects to which this {@code Producer}
+ object is connected.
+   </lead>
+   <description>
+Update the list of {@code Wire} objects to which this {@code Producer}
+ object is connected.
+ 
+ <p>
+ This method is called when the Producer service is first registered and
+ subsequently whenever a {@code Wire} associated with this Producer
+ becomes connected, is modified or becomes disconnected.
+ 
+ </p><p>
+ The Wire Admin service must call this method asynchronously. This implies
+ that implementors of a Producer service can be assured that the callback
+ will not take place during registration when they execute the
+ registration in a synchronized method.</p>
+   </description>
+
+<param name='wires'>An array of the current and complete list of {@code Wire}
+        objects to which this Producer service is connected. May be
+        {@code null} if the Producer is not currently connected to any
+        {@code Wire} objects.</param>
+
+
+
+
+    <parameter name='wires' dimension='[]' typeName='Wire[]' fqn='org.osgi.service.wireadmin.Wire[]' varargs='false'/>
+     </method>
+  </class>
+  <class name='Wire' fqn='org.osgi.service.wireadmin.Wire' qn='Wire' package='org.osgi.service.wireadmin' typeParam='' modifiers='public abstract' interface='yes' kind='INTERFACE'>
+   <lead>
+A connection between a Producer service and a Consumer service.
+   </lead>
+   <description>
+A connection between a Producer service and a Consumer service.
+ 
+ <p>
+ A {@code Wire} object connects a Producer service to a Consumer service. Both
+ the Producer and Consumer services are identified by their unique
+ {@code service.pid} values. The Producer and Consumer services may
+ communicate with each other via {@code Wire} objects that connect them. The
+ Producer service may send updated values to the Consumer service by calling
+ the {@link #update(Object)} method. The Consumer service may request an
+ updated value from the Producer service by calling the {@link #poll()}
+ method.
+ 
+ </p><p>
+ A Producer service and a Consumer service may be connected through multiple
+ {@code Wire} objects.
+ 
+ </p><p>
+ Security Considerations. {@code Wire} objects are available to Producer and
+ Consumer services connected to a given {@code Wire} object and to bundles
+ which can access the {@code WireAdmin} service. A bundle must have
+ {@code ServicePermission[WireAdmin,GET]} to get the {@code WireAdmin} service
+ to access all {@code Wire} objects. A bundle registering a Producer service
+ or a Consumer service must have the appropriate
+ {@code ServicePermission[Consumer|Producer,REGISTER]} to register the service
+ and will be passed {@code Wire} objects when the service object's
+ {@code consumersConnected} or {@code producersConnected} method is called.
+ 
+ </p><p>
+ Scope. Each Wire object can have a scope set with the {@code setScope}
+ method. This method should be called by a Consumer service when it assumes a
+ Producer service that is composite (supports multiple information items). The
+ names in the scope must be verified by the {@code Wire} object before it is
+ used in communication. The semantics of the names depend on the Producer
+ service and must not be interpreted by the Wire Admin service.</p>
+   </description>
+<noimplement></noimplement><author>@author $Id: d0dcf5584ab21e98272e2a3f9e5efb2333bb0741 $</author>
+    <method name='isValid' fqn='org.osgi.service.wireadmin.Wire.isValid' qn='Wire.isValid()' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='boolean' qualifiedTypeName='boolean' typeArgs='' dimension='' signature='()' flatSignature='()'>
+   <lead>
+Return the state of this {@code Wire} object.
+   </lead>
+   <description>
+Return the state of this {@code Wire} object.
+ 
+ <p>
+ A connected {@code Wire} must always be disconnected before becoming
+ invalid.</p>
+   </description>
+
+
+<return>{@code false} if this {@code Wire} object is invalid because it
+         has been deleted via {@link WireAdmin#deleteWire(Wire)};
+         {@code true} otherwise.</return>
+
+
+
+     </method>
+    <method name='isConnected' fqn='org.osgi.service.wireadmin.Wire.isConnected' qn='Wire.isConnected()' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='boolean' qualifiedTypeName='boolean' typeArgs='' dimension='' signature='()' flatSignature='()'>
+   <lead>
+Return the connection state of this {@code Wire} object.
+   </lead>
+   <description>
+Return the connection state of this {@code Wire} object.
+ 
+ <p>
+ A {@code Wire} is connected after the Wire Admin service receives
+ notification that the Producer service and the Consumer service for this
+ {@code Wire} object are both registered. This method will return
+ {@code true} prior to notifying the Producer and Consumer services via
+ calls to their respective {@code consumersConnected} and
+ {@code producersConnected} methods.
+ </p><p>
+ A {@code WireAdminEvent} of type {@link WireAdminEvent#WIRE_CONNECTED}
+ must be broadcast by the Wire Admin service when the {@code Wire} becomes
+ connected.
+ 
+ </p><p>
+ A {@code Wire} object is disconnected when either the Consumer or
+ Producer service is unregistered or the {@code Wire} object is deleted.
+ </p><p>
+ A {@code WireAdminEvent} of type {@link WireAdminEvent#WIRE_DISCONNECTED}
+ must be broadcast by the Wire Admin service when the {@code Wire} becomes
+ disconnected.</p>
+   </description>
+
+
+<return>{@code true} if both the Producer and Consumer for this
+         {@code Wire} object are connected to the {@code Wire} object;
+         {@code false} otherwise.</return>
+
+
+
+     </method>
+    <method name='getFlavors' fqn='org.osgi.service.wireadmin.Wire.getFlavors' qn='Wire.getFlavors()' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='Class&lt;?&gt;[]' qualifiedTypeName='java.lang.Class[]' typeArgs='' dimension='[]' signature='()' flatSignature='()'>
+   <lead>
+Return the list of data types understood by the Consumer service
+ connected to this {@code Wire} object.
+   </lead>
+   <description>
+Return the list of data types understood by the Consumer service
+ connected to this {@code Wire} object. Note that subclasses of the
+ classes in this list are acceptable data types as well.
+ 
+ <p>
+ The list is the value of the
+ {@link WireConstants#WIREADMIN_CONSUMER_FLAVORS} service property of the
+ Consumer service object connected to this object. If no such property was
+ registered or the type of the property value is not {@code Class[]}, this
+ method must return {@code null}.</p>
+   </description>
+
+
+<return>An array containing the list of classes understood by the
+         Consumer service or {@code null} if the {@code Wire} is not
+         connected, or the consumer did not register a
+         {@link WireConstants#WIREADMIN_CONSUMER_FLAVORS} property or the
+         value of the property is not of type {@code Class[]}.</return>
+
+
+
+     </method>
+    <method name='update' fqn='org.osgi.service.wireadmin.Wire.update' qn='Wire.update(Object)' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='void' qualifiedTypeName='void' typeArgs='' dimension='' signature='(java.lang.Object)' flatSignature='(Object)'>
+   <lead>
+Update the value.
+   </lead>
+   <description>
+Update the value.
+ 
+ <p>
+ This methods is called by the Producer service to notify the Consumer
+ service connected to this {@code Wire} object of an updated value.
+ </p><p>
+ If the properties of this {@code Wire} object contain a
+ {@link WireConstants#WIREADMIN_FILTER} property, then filtering is
+ performed. If the Producer service connected to this {@code Wire} object
+ was registered with the service property
+ {@link WireConstants#WIREADMIN_PRODUCER_FILTERS}, the Producer service
+ will perform the filtering according to the rules specified for the
+ filter. Otherwise, this {@code Wire} object will perform the filtering of
+ the value.
+ </p><p>
+ If no filtering is done, or the filter indicates the updated value should
+ be delivered to the Consumer service, then this {@code Wire} object must
+ call the {@link Consumer#updated(Wire, Object)} method with the updated
+ value. If this {@code Wire} object is not connected, then the Consumer
+ service must not be called and the value is ignored.
+ </p><p>
+ If the value is an {@code Envelope} object, and the scope name is not
+ permitted, then the {@code Wire} object must ignore this call and not
+ transfer the object to the Consumer service.
+ 
+ </p><p>
+ A {@code WireAdminEvent} of type {@link WireAdminEvent#WIRE_TRACE} must
+ be broadcast by the Wire Admin service after the Consumer service has
+ been successfully called.</p>
+   </description>
+
+<param name='value'>The updated value. The value should be an instance of one of
+        the types returned by {@link #getFlavors()}.</param>
+
+
+
+<a href='#WireConstants.WIREADMIN_FILTER'>WireConstants.WIREADMIN_FILTER</a>
+    <parameter name='value' dimension='' typeName='Object' fqn='java.lang.Object' varargs='false'/>
+     </method>
+    <method name='poll' fqn='org.osgi.service.wireadmin.Wire.poll' qn='Wire.poll()' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='Object' qualifiedTypeName='java.lang.Object' typeArgs='' dimension='' signature='()' flatSignature='()'>
+   <lead>
+Poll for an updated value.
+   </lead>
+   <description>
+Poll for an updated value.
+ 
+ <p>
+ This methods is normally called by the Consumer service to request an
+ updated value from the Producer service connected to this {@code Wire}
+ object. This {@code Wire} object will call the
+ {@link Producer#polled(Wire)} method to obtain an updated value. If this
+ {@code Wire} object is not connected, then the Producer service must not
+ be called.
+ </p><p>
+ 
+ If this {@code Wire} object has a scope, then this method must return an
+ array of {@code Envelope} objects. The objects returned must match the
+ scope of this object. The {@code Wire} object must remove all
+ {@code Envelope} objects with a scope name that is not in the
+ {@code Wire} object's scope. Thus, the list of objects returned must only
+ contain {@code Envelope} objects with a permitted scope name. If the
+ array becomes empty, {@code null} must be returned.
+ 
+ </p><p>
+ A {@code WireAdminEvent} of type {@link WireAdminEvent#WIRE_TRACE} must
+ be broadcast by the Wire Admin service after the Producer service has
+ been successfully called.</p>
+   </description>
+
+
+<return>A value whose type should be one of the types returned by
+         {@link #getFlavors()},{@code Envelope[]}, or {@code null} if the
+         {@code Wire} object is not connected, the Producer service threw
+         an exception, or the Producer service returned a value which is
+         not an instance of one of the types returned by
+         {@link #getFlavors()}.</return>
+
+
+
+     </method>
+    <method name='getLastValue' fqn='org.osgi.service.wireadmin.Wire.getLastValue' qn='Wire.getLastValue()' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='Object' qualifiedTypeName='java.lang.Object' typeArgs='' dimension='' signature='()' flatSignature='()'>
+   <lead>
+Return the last value sent through this {@code Wire} object.
+   </lead>
+   <description>
+Return the last value sent through this {@code Wire} object.
+ 
+ <p>
+ The returned value is the most recent, valid value passed to the
+ {@link #update(Object)} method or returned by the {@link #poll()} method
+ of this object. If filtering is performed by this {@code Wire} object,
+ this methods returns the last value provided by the Producer service.
+ This value may be an {@code Envelope[]} when the Producer service uses
+ scoping. If the return value is an Envelope object (or array), it must be
+ verified that the Consumer service has the proper WirePermission to see
+ it.</p>
+   </description>
+
+
+<return>The last value passed though this {@code Wire} object or
+         {@code null} if no valid values have been passed or the Consumer
+         service has no permission.</return>
+
+
+
+     </method>
+    <method name='getProperties' fqn='org.osgi.service.wireadmin.Wire.getProperties' qn='Wire.getProperties()' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='Dictionary&lt;String, Object&gt;' qualifiedTypeName='java.util.Dictionary' typeArgs='' dimension='' signature='()' flatSignature='()'>
+   <lead>
+Return the wire properties for this {@code Wire} object.
+   </lead>
+   <description>
+Return the wire properties for this {@code Wire} object.
+   </description>
+
+
+<return>The properties for this {@code Wire} object. The returned
+         {@code Dictionary} must be read only.</return>
+
+
+
+     </method>
+    <method name='getScope' fqn='org.osgi.service.wireadmin.Wire.getScope' qn='Wire.getScope()' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='String[]' qualifiedTypeName='java.lang.String[]' typeArgs='' dimension='[]' signature='()' flatSignature='()'>
+   <lead>
+Return the calculated scope of this {@code Wire} object.
+   </lead>
+   <description>
+Return the calculated scope of this {@code Wire} object.
+ 
+ The purpose of the {@code Wire} object's scope is to allow a Producer
+ and/or Consumer service to produce/consume different types over a single
+ {@code Wire} object (this was deemed necessary for efficiency reasons).
+ Both the Consumer service and the Producer service must set an array of
+ scope names (their scope) with the service registration property
+ {@code WIREADMIN_PRODUCER_SCOPE}, or {@code WIREADMIN_CONSUMER_SCOPE}
+ when they can produce multiple types. If a Producer service can produce
+ different types, it should set this property to the array of scope names
+ it can produce, the Consumer service must set the array of scope names it
+ can consume. The scope of a {@code Wire} object is defined as the
+ intersection of permitted scope names of the Producer service and
+ Consumer service.
+ <p>
+ If neither the Consumer, or the Producer service registers scope names
+ with its service registration, then the {@code Wire} object's scope must
+ be {@code null}.
+ </p><p>
+ The {@code Wire} object's scope must not change when a Producer or
+ Consumer services modifies its scope.
+ </p><p>
+ A scope name is permitted for a Producer service when the registering
+ bundle has {@code WirePermission[name,PRODUCE]}, and for a Consumer
+ service when the registering bundle has
+ {@code WirePermission[name,CONSUME]}.
+ </p><p>
+ If either Consumer service or Producer service has not set a
+ {@code WIREADMIN_*_SCOPE} property, then the returned value must be
+ {@code null}.
+ </p><p>
+ If the scope is set, the {@code Wire} object must enforce the scope names
+ when {@code Envelope} objects are used as a parameter to update or
+ returned from the {@code poll} method. The {@code Wire} object must then
+ remove all {@code Envelope} objects with a scope name that is not
+ permitted.</p>
+   </description>
+
+
+<return>A list of permitted scope names or null if the Produce or
+         Consumer service has set no scope names.</return>
+
+
+
+     </method>
+    <method name='hasScope' fqn='org.osgi.service.wireadmin.Wire.hasScope' qn='Wire.hasScope(String)' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='boolean' qualifiedTypeName='boolean' typeArgs='' dimension='' signature='(java.lang.String)' flatSignature='(String)'>
+   <lead>
+Return true if the given name is in this {@code Wire} object's scope.
+   </lead>
+   <description>
+Return true if the given name is in this {@code Wire} object's scope.
+   </description>
+
+<param name='name'>The scope name</param>
+
+<return>true if the name is listed in the permitted scope names</return>
+
+
+
+    <parameter name='name' dimension='' typeName='String' fqn='java.lang.String' varargs='false'/>
+     </method>
+  </class>
+  <class name='WireAdmin' fqn='org.osgi.service.wireadmin.WireAdmin' qn='WireAdmin' package='org.osgi.service.wireadmin' typeParam='' modifiers='public abstract' interface='yes' kind='INTERFACE'>
+   <lead>
+Wire Administration service.
+   </lead>
+   <description>
+Wire Administration service.
+ 
+ <p>
+ This service can be used to create {@code Wire} objects connecting a Producer
+ service and a Consumer service. {@code Wire} objects also have wire
+ properties that may be specified when a {@code Wire} object is created. The
+ Producer and Consumer services may use the {@code Wire} object's properties
+ to manage or control their interaction. The use of {@code Wire} object's
+ properties by a Producer or Consumer services is optional.
+ 
+ </p><p>
+ Security Considerations. A bundle must have
+ {@code ServicePermission[WireAdmin,GET]} to get the Wire Admin service to
+ create, modify, find, and delete {@code Wire} objects.</p>
+   </description>
+<noimplement></noimplement><author>@author $Id: 149f03833f1562cd60f2b62bfc83d6ee4c8ca7a1 $</author>
+    <method name='createWire' fqn='org.osgi.service.wireadmin.WireAdmin.createWire' qn='WireAdmin.createWire(String,String,Dictionary)' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='Wire' qualifiedTypeName='org.osgi.service.wireadmin.Wire' typeArgs='' dimension='' signature='(java.lang.String,java.lang.String,java.util.Dictionary&lt;java.lang.String,?&gt;)' flatSignature='(String,String,Dictionary)'>
+   <lead>
+Create a new {@code Wire} object that connects a Producer service to a
+ Consumer service.
+   </lead>
+   <description>
+Create a new {@code Wire} object that connects a Producer service to a
+ Consumer service.
+ 
+ The Producer service and Consumer service do not have to be registered
+ when the {@code Wire} object is created.
+ 
+ <p>
+ The {@code Wire} configuration data must be persistently stored. All
+ {@code Wire} connections are reestablished when the {@code WireAdmin}
+ service is registered. A {@code Wire} can be permanently removed by using
+ the {@link #deleteWire(Wire)} method.
+ 
+ </p><p>
+ The {@code Wire} object's properties must have case insensitive
+ {@code String} objects as keys (like the Framework). However, the case of
+ the key must be preserved.
+ 
+ </p><p>
+ The {@code WireAdmin} service must automatically add the following
+ {@code Wire} properties:
+ </p><ul>
+ <li>{@link WireConstants#WIREADMIN_PID} set to the value of the
+ {@code Wire} object's persistent identity (PID). This value is generated
+ by the Wire Admin service when a {@code Wire} object is created.</li>
+ <li>{@link WireConstants#WIREADMIN_PRODUCER_PID} set to the value of
+ Producer service's PID.</li>
+ <li>{@link WireConstants#WIREADMIN_CONSUMER_PID} set to the value of
+ Consumer service's PID.</li>
+ </ul>
+ If the {@code properties} argument already contains any of these keys,
+ then the supplied values are replaced with the values assigned by the
+ Wire Admin service.
+ 
+ <p>
+ The Wire Admin service must broadcast a {@code WireAdminEvent} of type
+ {@link WireAdminEvent#WIRE_CREATED} after the new {@code Wire} object
+ becomes available from {@link #getWires(String)}.</p>
+   </description>
+
+<param name='producerPID'>The {@code service.pid} of the Producer service to be
+        connected to the {@code Wire} object.</param>
+<param name='consumerPID'>The {@code service.pid} of the Consumer service to be
+        connected to the {@code Wire} object.</param>
+<param name='properties'>The {@code Wire} object's properties. This argument may
+        be {@code null} if the caller does not wish to define any
+        {@code Wire} object's properties.</param>
+
+<return>The {@code Wire} object for this connection.</return>
+
+<throws name='IllegalArgumentException'>If {@code properties} contains
+         invalid wire types or case variants of the same key name.</throws>
+
+
+    <parameter name='producerPID' dimension='' typeName='String' fqn='java.lang.String' varargs='false'/>
+    <parameter name='consumerPID' dimension='' typeName='String' fqn='java.lang.String' varargs='false'/>
+    <parameter name='properties' dimension='' typeName='Dictionary&lt;String, ?&gt;' fqn='java.util.Dictionary' varargs='false'/>
+     </method>
+    <method name='deleteWire' fqn='org.osgi.service.wireadmin.WireAdmin.deleteWire' qn='WireAdmin.deleteWire(Wire)' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='void' qualifiedTypeName='void' typeArgs='' dimension='' signature='(org.osgi.service.wireadmin.Wire)' flatSignature='(Wire)'>
+   <lead>
+Delete a {@code Wire} object.
+   </lead>
+   <description>
+Delete a {@code Wire} object.
+ 
+ <p>
+ The {@code Wire} object representing a connection between a Producer
+ service and a Consumer service must be removed. The persistently stored
+ configuration data for the {@code Wire} object must destroyed. The
+ {@code Wire} object's method {@link Wire#isValid()} will return
+ {@code false} after it is deleted.
+ 
+ </p><p>
+ The Wire Admin service must broadcast a {@code WireAdminEvent} of type
+ {@link WireAdminEvent#WIRE_DELETED} after the {@code Wire} object becomes
+ invalid.</p>
+   </description>
+
+<param name='wire'>The {@code Wire} object which is to be deleted.</param>
+
+
+
+
+    <parameter name='wire' dimension='' typeName='Wire' fqn='org.osgi.service.wireadmin.Wire' varargs='false'/>
+     </method>
+    <method name='updateWire' fqn='org.osgi.service.wireadmin.WireAdmin.updateWire' qn='WireAdmin.updateWire(Wire,Dictionary)' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='void' qualifiedTypeName='void' typeArgs='' dimension='' signature='(org.osgi.service.wireadmin.Wire,java.util.Dictionary&lt;java.lang.String,?&gt;)' flatSignature='(Wire,Dictionary)'>
+   <lead>
+Update the properties of a {@code Wire} object.
+   </lead>
+   <description>
+Update the properties of a {@code Wire} object.
+ 
+ The persistently stored configuration data for the {@code Wire} object is
+ updated with the new properties and then the Consumer and Producer
+ services will be called at the respective
+ {@link Consumer#producersConnected(Wire[])} and
+ {@link Producer#consumersConnected(Wire[])} methods.
+ 
+ <p>
+ The Wire Admin service must broadcast a {@code WireAdminEvent} of type
+ {@link WireAdminEvent#WIRE_UPDATED} after the updated properties are
+ available from the {@code Wire} object.</p>
+   </description>
+
+<param name='wire'>The {@code Wire} object which is to be updated.</param>
+<param name='properties'>The new {@code Wire} object's properties or
+        {@code null} if no properties are required.</param>
+
+
+<throws name='IllegalArgumentException'>If {@code properties} contains
+         invalid wire types or case variants of the same key name.</throws>
+
+
+    <parameter name='wire' dimension='' typeName='Wire' fqn='org.osgi.service.wireadmin.Wire' varargs='false'/>
+    <parameter name='properties' dimension='' typeName='Dictionary&lt;String, ?&gt;' fqn='java.util.Dictionary' varargs='false'/>
+     </method>
+    <method name='getWires' fqn='org.osgi.service.wireadmin.WireAdmin.getWires' qn='WireAdmin.getWires(String)' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='Wire[]' qualifiedTypeName='org.osgi.service.wireadmin.Wire[]' typeArgs='' dimension='[]' signature='(java.lang.String)' flatSignature='(String)'>
+   <lead>
+Return the {@code Wire} objects that match the given {@code filter}.
+   </lead>
+   <description>
+Return the {@code Wire} objects that match the given {@code filter}.
+ 
+ <p>
+ The list of available {@code Wire} objects is matched against the
+ specified {@code filter}.{@code Wire} objects which match the
+ {@code filter} must be returned. These {@code Wire} objects are not
+ necessarily connected. The Wire Admin service should not return invalid
+ {@code Wire} objects, but it is possible that a {@code Wire} object is
+ deleted after it was placed in the list.
+ 
+ </p><p>
+ The filter matches against the {@code Wire} object's properties including
+ {@link WireConstants#WIREADMIN_PRODUCER_PID},
+ {@link WireConstants#WIREADMIN_CONSUMER_PID} and
+ {@link WireConstants#WIREADMIN_PID}.</p>
+   </description>
+
+<param name='filter'>Filter string to select {@code Wire} objects or
+        {@code null} to select all {@code Wire} objects.</param>
+
+<return>An array of {@code Wire} objects which match the {@code filter}
+         or {@code null} if no {@code Wire} objects match the
+         {@code filter}.</return>
+
+<throws name='InvalidSyntaxException'>If the specified
+         {@code filter} has an invalid syntax.</throws>
+
+<a href='#org.osgi.framework.Filter'>org.osgi.framework.Filter</a>
+    <parameter name='filter' dimension='' typeName='String' fqn='java.lang.String' varargs='false'/>
+<exception name='InvalidSyntaxException' fqn='org.osgi.framework.InvalidSyntaxException'/>
+     </method>
+  </class>
+  <class name='WireAdminEvent' fqn='org.osgi.service.wireadmin.WireAdminEvent' qn='WireAdminEvent' package='org.osgi.service.wireadmin' typeParam='' modifiers='public class' kind='CLASS'>
+   <lead>
+A Wire Admin Event.
+   </lead>
+   <description>
+A Wire Admin Event.
+ 
+ <p>
+ {@code WireAdminEvent} objects are delivered to all registered
+ {@code WireAdminListener} service objects which specify an interest in the
+ {@code WireAdminEvent} type. Events must be delivered in chronological order
+ with respect to each listener. For example, a {@code WireAdminEvent} of type
+ {@link #WIRE_CONNECTED} must be delivered before a {@code WireAdminEvent} of
+ type {@link #WIRE_DISCONNECTED} for a particular {@code Wire} object.
+ 
+ </p><p>
+ A type code is used to identify the type of event. The following event types
+ are defined:
+ </p><ul>
+ <li>{@link #WIRE_CREATED}</li>
+ <li>{@link #WIRE_CONNECTED}</li>
+ <li>{@link #WIRE_UPDATED}</li>
+ <li>{@link #WIRE_TRACE}</li>
+ <li>{@link #WIRE_DISCONNECTED}</li>
+ <li>{@link #WIRE_DELETED}</li>
+ <li>{@link #PRODUCER_EXCEPTION}</li>
+ <li>{@link #CONSUMER_EXCEPTION}</li>
+ </ul>
+ Additional event types may be defined in the future.
+ 
+ <p>
+ Event type values must be unique and disjoint bit values. Event types must be
+ defined as a bit in a 32 bit integer and can thus be bitwise ORed together.
+ </p><p>
+ Security Considerations. {@code WireAdminEvent} objects contain {@code Wire}
+ objects. Care must be taken in the sharing of {@code Wire} objects with other
+ bundles.</p>
+   </description>
+<a href='#WireAdminListener'>WireAdminListener</a><Immutable></Immutable><author>@author $Id: ac5435a7db44132fe343758d9c36dfb69e6e5064 $</author>
+    <method name='WireAdminEvent' fqn='org.osgi.service.wireadmin.WireAdminEvent.WireAdminEvent' qn='WireAdminEvent.WireAdminEvent(ServiceReference,int,Wire,Throwable)' package='org.osgi.service.wireadmin' typeArgs='' modifiers='public' signature='(org.osgi.framework.ServiceReference&lt;org.osgi.service.wireadmin.WireAdmin&gt;,int,org.osgi.service.wireadmin.Wire,java.lang.Throwable)' flatSignature='(ServiceReference,int,Wire,Throwable)' isConstructor='true'>
+   <lead>
+Constructs a {@code WireAdminEvent} object from the given
+ {@code ServiceReference} object, event type, {@code Wire} object and
+ exception.
+   </lead>
+   <description>
+Constructs a {@code WireAdminEvent} object from the given
+ {@code ServiceReference} object, event type, {@code Wire} object and
+ exception.
+   </description>
+
+<param name='reference'>The {@code ServiceReference} object of the Wire Admin
+        service that created this event.</param>
+<param name='type'>The event type. See {@link #getType()}.</param>
+<param name='wire'>The {@code Wire} object associated with this event.</param>
+<param name='exception'>An exception associated with this event. This may be
+        {@code null} if no exception is associated with this event.</param>
+
+
+
+
+    <parameter name='reference' dimension='' typeName='ServiceReference&lt;WireAdmin&gt;' fqn='org.osgi.framework.ServiceReference' varargs='false'/>
+    <parameter name='type' dimension='' typeName='int' fqn='int' varargs='false'/>
+    <parameter name='wire' dimension='' typeName='Wire' fqn='org.osgi.service.wireadmin.Wire' varargs='false'/>
+    <parameter name='exception' dimension='' typeName='Throwable' fqn='java.lang.Throwable' varargs='false'/>
+     </method>
+    <method name='getServiceReference' fqn='org.osgi.service.wireadmin.WireAdminEvent.getServiceReference' qn='WireAdminEvent.getServiceReference()' package='org.osgi.service.wireadmin' modifiers='public' typeName='ServiceReference&lt;WireAdmin&gt;' qualifiedTypeName='org.osgi.framework.ServiceReference' typeArgs='' dimension='' signature='()' flatSignature='()'>
+   <lead>
+Return the {@code ServiceReference} object of the Wire Admin service that
+ created this event.
+   </lead>
+   <description>
+Return the {@code ServiceReference} object of the Wire Admin service that
+ created this event.
+   </description>
+
+
+<return>The {@code ServiceReference} object for the Wire Admin service
+         that created this event.</return>
+
+
+
+     </method>
+    <method name='getWire' fqn='org.osgi.service.wireadmin.WireAdminEvent.getWire' qn='WireAdminEvent.getWire()' package='org.osgi.service.wireadmin' modifiers='public' typeName='Wire' qualifiedTypeName='org.osgi.service.wireadmin.Wire' typeArgs='' dimension='' signature='()' flatSignature='()'>
+   <lead>
+Return the {@code Wire} object associated with this event.
+   </lead>
+   <description>
+Return the {@code Wire} object associated with this event.
+   </description>
+
+
+<return>The {@code Wire} object associated with this event or
+         {@code null} when no {@code Wire} object is associated with the
+         event.</return>
+
+
+
+     </method>
+    <method name='getType' fqn='org.osgi.service.wireadmin.WireAdminEvent.getType' qn='WireAdminEvent.getType()' package='org.osgi.service.wireadmin' modifiers='public' typeName='int' qualifiedTypeName='int' typeArgs='' dimension='' signature='()' flatSignature='()'>
+   <lead>
+Return the type of this event.
+   </lead>
+   <description>
+Return the type of this event.
+ <p>
+ The type values are:
+ </p><ul>
+ <li>{@link #WIRE_CREATED}</li>
+ <li>{@link #WIRE_CONNECTED}</li>
+ <li>{@link #WIRE_UPDATED}</li>
+ <li>{@link #WIRE_TRACE}</li>
+ <li>{@link #WIRE_DISCONNECTED}</li>
+ <li>{@link #WIRE_DELETED}</li>
+ <li>{@link #PRODUCER_EXCEPTION}</li>
+ <li>{@link #CONSUMER_EXCEPTION}</li>
+ </ul>
+   </description>
+
+
+<return>The type of this event.</return>
+
+
+
+     </method>
+    <method name='getThrowable' fqn='org.osgi.service.wireadmin.WireAdminEvent.getThrowable' qn='WireAdminEvent.getThrowable()' package='org.osgi.service.wireadmin' modifiers='public' typeName='Throwable' qualifiedTypeName='java.lang.Throwable' typeArgs='' dimension='' signature='()' flatSignature='()'>
+   <lead>
+Returns the exception associated with the event, if any.
+   </lead>
+   <description>
+Returns the exception associated with the event, if any.
+   </description>
+
+
+<return>An exception or {@code null} if no exception is associated with
+         this event.</return>
+
+
+
+     </method>
+    <field name='PRODUCER_EXCEPTION' fqn='org.osgi.service.wireadmin.WireAdminEvent.PRODUCER_EXCEPTION' qn='WireAdminEvent.PRODUCER_EXCEPTION' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='int' qualifiedTypeName='int' dimension='' constantValue='1'>
+   <lead>
+A Producer service method has thrown an exception.
+   </lead>
+   <description>
+A Producer service method has thrown an exception.
+ 
+ <p>
+ This {@code WireAdminEvent} type indicates that a Producer service method
+ has thrown an exception. The {@link WireAdminEvent#getThrowable()} method
+ will return the exception that the Producer service method raised.
+ 
+ </p><p>
+ The value of {@code PRODUCER_EXCEPTION} is 0x00000001.</p>
+   </description>
+
+     </field>
+    <field name='CONSUMER_EXCEPTION' fqn='org.osgi.service.wireadmin.WireAdminEvent.CONSUMER_EXCEPTION' qn='WireAdminEvent.CONSUMER_EXCEPTION' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='int' qualifiedTypeName='int' dimension='' constantValue='2'>
+   <lead>
+A Consumer service method has thrown an exception.
+   </lead>
+   <description>
+A Consumer service method has thrown an exception.
+ 
+ <p>
+ This {@code WireAdminEvent} type indicates that a Consumer service method
+ has thrown an exception. The {@link WireAdminEvent#getThrowable()} method
+ will return the exception that the Consumer service method raised.
+ 
+ </p><p>
+ The value of {@code CONSUMER_EXCEPTION} is 0x00000002.</p>
+   </description>
+
+     </field>
+    <field name='WIRE_CREATED' fqn='org.osgi.service.wireadmin.WireAdminEvent.WIRE_CREATED' qn='WireAdminEvent.WIRE_CREATED' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='int' qualifiedTypeName='int' dimension='' constantValue='4'>
+   <lead>
+A {@code Wire} has been created.
+   </lead>
+   <description>
+A {@code Wire} has been created.
+ 
+ <p>
+ This {@code WireAdminEvent} type that indicates that a new {@code Wire}
+ object has been created.
+ 
+ An event is broadcast when
+ {@link WireAdmin#createWire(String, String, java.util.Dictionary)} is
+ called. The {@link WireAdminEvent#getWire()} method will return the
+ {@code Wire} object that has just been created.
+ 
+ </p><p>
+ The value of {@code WIRE_CREATED} is 0x00000004.</p>
+   </description>
+
+     </field>
+    <field name='WIRE_UPDATED' fqn='org.osgi.service.wireadmin.WireAdminEvent.WIRE_UPDATED' qn='WireAdminEvent.WIRE_UPDATED' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='int' qualifiedTypeName='int' dimension='' constantValue='8'>
+   <lead>
+A {@code Wire} has been updated.
+   </lead>
+   <description>
+A {@code Wire} has been updated.
+ 
+ <p>
+ This {@code WireAdminEvent} type that indicates that an existing
+ {@code Wire} object has been updated with new properties.
+ 
+ An event is broadcast when
+ {@link WireAdmin#updateWire(Wire, java.util.Dictionary)} is called with a
+ valid wire. The {@link WireAdminEvent#getWire()} method will return the
+ {@code Wire} object that has just been updated.
+ 
+ </p><p>
+ The value of {@code WIRE_UPDATED} is 0x00000008.</p>
+   </description>
+
+     </field>
+    <field name='WIRE_DELETED' fqn='org.osgi.service.wireadmin.WireAdminEvent.WIRE_DELETED' qn='WireAdminEvent.WIRE_DELETED' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='int' qualifiedTypeName='int' dimension='' constantValue='16'>
+   <lead>
+A {@code Wire} has been deleted.
+   </lead>
+   <description>
+A {@code Wire} has been deleted.
+ 
+ <p>
+ This {@code WireAdminEvent} type that indicates that an existing wire has
+ been deleted.
+ 
+ An event is broadcast when {@link WireAdmin#deleteWire(Wire)} is called
+ with a valid wire. {@link WireAdminEvent#getWire()} will return the
+ {@code Wire} object that has just been deleted.
+ 
+ </p><p>
+ The value of {@code WIRE_DELETED} is 0x00000010.</p>
+   </description>
+
+     </field>
+    <field name='WIRE_CONNECTED' fqn='org.osgi.service.wireadmin.WireAdminEvent.WIRE_CONNECTED' qn='WireAdminEvent.WIRE_CONNECTED' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='int' qualifiedTypeName='int' dimension='' constantValue='32'>
+   <lead>
+The {@code WireAdminEvent} type that indicates that an existing
+ {@code Wire} object has become connected.
+   </lead>
+   <description>
+The {@code WireAdminEvent} type that indicates that an existing
+ {@code Wire} object has become connected.
+ 
+ The Consumer object and the Producer object that are associated with the
+ {@code Wire} object have both been registered and the {@code Wire} object
+ is connected. See {@link Wire#isConnected()} for a description of the
+ connected state. This event may come before the
+ {@code producersConnected} and {@code consumersConnected} method have
+ returned or called to allow synchronous delivery of the events. Both
+ methods can cause other {@code WireAdminEvent} s to take place and
+ requiring this event to be send before these methods are returned would
+ mandate asynchronous delivery.
+ 
+ <p>
+ The value of {@code WIRE_CONNECTED} is 0x00000020.</p>
+   </description>
+
+     </field>
+    <field name='WIRE_DISCONNECTED' fqn='org.osgi.service.wireadmin.WireAdminEvent.WIRE_DISCONNECTED' qn='WireAdminEvent.WIRE_DISCONNECTED' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='int' qualifiedTypeName='int' dimension='' constantValue='64'>
+   <lead>
+The {@code WireAdminEvent} type that indicates that an existing
+ {@code Wire} object has become disconnected.
+   </lead>
+   <description>
+The {@code WireAdminEvent} type that indicates that an existing
+ {@code Wire} object has become disconnected.
+ 
+ The Consumer object or/and Producer object is/are unregistered breaking
+ the connection between the two. See {@link Wire#isConnected} for a
+ description of the connected state.
+ 
+ <p>
+ The value of {@code WIRE_DISCONNECTED} is 0x00000040.</p>
+   </description>
+
+     </field>
+    <field name='WIRE_TRACE' fqn='org.osgi.service.wireadmin.WireAdminEvent.WIRE_TRACE' qn='WireAdminEvent.WIRE_TRACE' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='int' qualifiedTypeName='int' dimension='' constantValue='128'>
+   <lead>
+The {@code WireAdminEvent} type that indicates that a new value is
+ transferred over the {@code Wire} object.
+   </lead>
+   <description>
+The {@code WireAdminEvent} type that indicates that a new value is
+ transferred over the {@code Wire} object.
+ 
+ This event is sent after the Consumer service has been notified by
+ calling the {@link Consumer#updated(Wire, Object)} method or the Consumer
+ service requested a new value with the {@link Wire#poll()} method. This
+ is an advisory event meaning that when this event is received, another
+ update may already have occurred and this the {@link Wire#getLastValue()}
+ method returns a newer value then the value that was communicated for
+ this event.
+ 
+ <p>
+ The value of {@code WIRE_TRACE} is 0x00000080.</p>
+   </description>
+
+     </field>
+  </class>
+  <class name='WireAdminListener' fqn='org.osgi.service.wireadmin.WireAdminListener' qn='WireAdminListener' package='org.osgi.service.wireadmin' typeParam='' modifiers='public abstract' interface='yes' kind='INTERFACE'>
+   <lead>
+Listener for Wire Admin Events.
+   </lead>
+   <description>
+Listener for Wire Admin Events.
+ 
+ <p>
+ {@code WireAdminListener} objects are registered with the Framework service
+ registry and are notified with a {@code WireAdminEvent} object when an event
+ is broadcast.
+ </p><p>
+ {@code WireAdminListener} objects can inspect the received
+ {@code WireAdminEvent} object to determine its type, the {@code Wire} object
+ with which it is associated, and the Wire Admin service that broadcasts the
+ event.
+ 
+ </p><p>
+ {@code WireAdminListener} objects must be registered with a service property
+ {@link WireConstants#WIREADMIN_EVENTS} whose value is a bitwise OR of all the
+ event types the listener is interested in receiving.
+ </p><p>
+ For example:
+ 
+ </p><pre>&#8194;Integer&#8194;mask&#8194;=&#8194;Integer.valueOf(WIRE_TRACE&#8194;|&#8194;WIRE_CONNECTED&#8194;|&#8194;WIRE_DISCONNECTED);<br/>&#8194;Hashtable&#8194;ht&#8194;=&#8194;new&#8194;Hashtable();<br/>&#8194;ht.put(WIREADMIN_EVENTS,&#8194;mask);<br/>&#8194;context.registerService(WireAdminListener.class.getName(),&#8194;this,&#8194;ht);</pre>
+ 
+ If a {@code WireAdminListener} object is registered without a service
+ property {@link WireConstants#WIREADMIN_EVENTS}, then the
+ {@code WireAdminListener} will receive no events.
+ 
+ <p>
+ Security Considerations. Bundles wishing to monitor {@code WireAdminEvent}
+ objects will require {@code ServicePermission[WireAdminListener,REGISTER]} to
+ register a {@code WireAdminListener} service. Since {@code WireAdminEvent}
+ objects contain {@code Wire} objects, care must be taken in assigning
+ permission to register a {@code WireAdminListener} service.</p>
+   </description>
+<a href='#WireAdminEvent'>WireAdminEvent</a><author>@author $Id: 39a6c6c3618d5bb6e3fb14996dd80c99dd70341d $</author>
+    <method name='wireAdminEvent' fqn='org.osgi.service.wireadmin.WireAdminListener.wireAdminEvent' qn='WireAdminListener.wireAdminEvent(WireAdminEvent)' package='org.osgi.service.wireadmin' modifiers='public abstract' typeName='void' qualifiedTypeName='void' typeArgs='' dimension='' signature='(org.osgi.service.wireadmin.WireAdminEvent)' flatSignature='(WireAdminEvent)'>
+   <lead>
+Receives notification of a broadcast {@code WireAdminEvent} object.
+   </lead>
+   <description>
+Receives notification of a broadcast {@code WireAdminEvent} object.
+ 
+ The event object will be of an event type specified in this
+ {@code WireAdminListener} service's
+ {@link WireConstants#WIREADMIN_EVENTS} service property.
+   </description>
+
+<param name='event'>The {@code WireAdminEvent} object.</param>
+
+
+
+
+    <parameter name='event' dimension='' typeName='WireAdminEvent' fqn='org.osgi.service.wireadmin.WireAdminEvent' varargs='false'/>
+     </method>
+  </class>
+  <class name='WireConstants' fqn='org.osgi.service.wireadmin.WireConstants' qn='WireConstants' package='org.osgi.service.wireadmin' typeParam='' modifiers='public abstract' interface='yes' kind='INTERFACE'>
+   <lead>
+Defines standard names for {@code Wire} properties, wire filter attributes,
+ Consumer and Producer service properties.
+   </lead>
+   <description>
+Defines standard names for {@code Wire} properties, wire filter attributes,
+ Consumer and Producer service properties.
+   </description>
+<noimplement></noimplement><author>@author $Id: e9406b56dedf5f46f76a4640dc3d6231553005cb $</author>
+    <field name='WIREADMIN_PID' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_PID' qn='WireConstants.WIREADMIN_PID' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wireadmin.pid"'>
+   <lead>
+{@code Wire} property key (named {@code wireadmin.pid}) specifying the
+ persistent identity (PID) of this {@code Wire} object.
+   </lead>
+   <description>
+{@code Wire} property key (named {@code wireadmin.pid}) specifying the
+ persistent identity (PID) of this {@code Wire} object.
+ 
+ <p>
+ Each {@code Wire} object has a PID to allow unique and persistent
+ identification of a specific {@code Wire} object. The PID must be
+ generated by the {@link WireAdmin} service when the {@code Wire} object
+ is created.
+ 
+ </p><p>
+ This wire property is automatically set by the Wire Admin service. The
+ value of the property must be of type {@code String}.</p>
+   </description>
+
+     </field>
+    <field name='WIREADMIN_PRODUCER_COMPOSITE' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_PRODUCER_COMPOSITE' qn='WireConstants.WIREADMIN_PRODUCER_COMPOSITE' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wireadmin.producer.composite"'>
+   <lead>
+A service registration property for a Producer service that is composite.
+   </lead>
+   <description>
+A service registration property for a Producer service that is composite.
+ It contains the names of the composite Consumer services it can
+ interoperate with. Interoperability exists when any name in this array
+ matches any name in the array set by the Consumer service. The type of
+ this property must be {@code String[]}.
+   </description>
+
+     </field>
+    <field name='WIREADMIN_CONSUMER_COMPOSITE' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_CONSUMER_COMPOSITE' qn='WireConstants.WIREADMIN_CONSUMER_COMPOSITE' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wireadmin.consumer.composite"'>
+   <lead>
+A service registration property for a Consumer service that is composite.
+   </lead>
+   <description>
+A service registration property for a Consumer service that is composite.
+ It contains the names of the composite Producer services it can cooperate
+ with. Interoperability exists when any name in this array matches any
+ name in the array set by the Producer service. The type of this property
+ must be {@code String[]}.
+   </description>
+
+     </field>
+    <field name='WIREADMIN_PRODUCER_SCOPE' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_PRODUCER_SCOPE' qn='WireConstants.WIREADMIN_PRODUCER_SCOPE' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wireadmin.producer.scope"'>
+   <lead>
+Service registration property key (named {@code wireadmin.producer.scope}
+ ) specifying a list of names that may be used to define the scope of this
+ {@code Wire} object.
+   </lead>
+   <description>
+Service registration property key (named {@code wireadmin.producer.scope}
+ ) specifying a list of names that may be used to define the scope of this
+ {@code Wire} object. A Producer service should set this service property
+ when it can produce more than one kind of value. This property is only
+ used during registration, modifying the property must not have any effect
+ of the {@code Wire} object's scope. Each name in the given list mist have
+ {@code WirePermission[name,PRODUCE]} or else is ignored. The type of this
+ service registration property must be {@code String[]}.
+   </description>
+<a href='#Wire.getScope()'>Wire.getScope()</a><a href='#WIREADMIN_CONSUMER_SCOPE'>WIREADMIN_CONSUMER_SCOPE</a>
+     </field>
+    <field name='WIREADMIN_CONSUMER_SCOPE' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_CONSUMER_SCOPE' qn='WireConstants.WIREADMIN_CONSUMER_SCOPE' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wireadmin.consumer.scope"'>
+   <lead>
+Service registration property key (named {@code wireadmin.consumer.scope}
+ ) specifying a list of names that may be used to define the scope of this
+ {@code Wire} object.
+   </lead>
+   <description>
+Service registration property key (named {@code wireadmin.consumer.scope}
+ ) specifying a list of names that may be used to define the scope of this
+ {@code Wire} object. A {@code Consumer} service should set this service
+ property when it can produce more than one kind of value. This property
+ is only used during registration, modifying the property must not have
+ any effect of the {@code Wire} object's scope. Each name in the given
+ list mist have {@code WirePermission[name,CONSUME]} or else is ignored.
+ The type of this service registration property must be {@code String[]}.
+   </description>
+<a href='#Wire.getScope()'>Wire.getScope()</a><a href='#WIREADMIN_PRODUCER_SCOPE'>WIREADMIN_PRODUCER_SCOPE</a>
+     </field>
+    <field name='WIREADMIN_SCOPE_ALL' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_SCOPE_ALL' qn='WireConstants.WIREADMIN_SCOPE_ALL' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String[]' qualifiedTypeName='java.lang.String[]' dimension='[]'>
+   <lead>
+Matches all scope names.
+   </lead>
+   <description>
+Matches all scope names.
+   </description>
+
+     </field>
+    <field name='WIREADMIN_PRODUCER_PID' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_PRODUCER_PID' qn='WireConstants.WIREADMIN_PRODUCER_PID' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wireadmin.producer.pid"'>
+   <lead>
+{@code Wire} property key (named {@code wireadmin.producer.pid})
+ specifying the {@code service.pid} of the associated Producer service.
+   </lead>
+   <description>
+{@code Wire} property key (named {@code wireadmin.producer.pid})
+ specifying the {@code service.pid} of the associated Producer service.
+ 
+ <p>
+ This wire property is automatically set by the WireAdmin service. The
+ value of the property must be of type {@code String}.</p>
+   </description>
+
+     </field>
+    <field name='WIREADMIN_CONSUMER_PID' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_CONSUMER_PID' qn='WireConstants.WIREADMIN_CONSUMER_PID' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wireadmin.consumer.pid"'>
+   <lead>
+{@code Wire} property key (named {@code wireadmin.consumer.pid})
+ specifying the {@code service.pid} of the associated Consumer service.
+   </lead>
+   <description>
+{@code Wire} property key (named {@code wireadmin.consumer.pid})
+ specifying the {@code service.pid} of the associated Consumer service.
+ 
+ <p>
+ This wire property is automatically set by the Wire Admin service. The
+ value of the property must be of type {@code String}.</p>
+   </description>
+
+     </field>
+    <field name='WIREADMIN_FILTER' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_FILTER' qn='WireConstants.WIREADMIN_FILTER' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wireadmin.filter"'>
+   <lead>
+{@code Wire} property key (named {@code wireadmin.filter}) specifying a
+ filter used to control the delivery rate of data between the Producer and
+ the Consumer service.
+   </lead>
+   <description>
+{@code Wire} property key (named {@code wireadmin.filter}) specifying a
+ filter used to control the delivery rate of data between the Producer and
+ the Consumer service.
+ 
+ <p>
+ This property should contain a filter as described in the {@code Filter}
+ class. The filter can be used to specify when an updated value from the
+ Producer service should be delivered to the Consumer service. In many
+ cases the Consumer service does not need to receive the data with the
+ same rate that the Producer service can generate data. This property can
+ be used to control the delivery rate.
+ </p><p>
+ The filter can use a number of predefined attributes that can be used to
+ control the delivery of new data values. If the filter produces a match
+ upon the wire filter attributes, the Consumer service should be notified
+ of the updated data value.
+ </p><p>
+ If the Producer service was registered with the
+ {@link #WIREADMIN_PRODUCER_FILTERS} service property indicating that the
+ Producer service will perform the data filtering then the {@code Wire}
+ object will not perform data filtering. Otherwise, the {@code Wire}
+ object must perform basic filtering. Basic filtering includes supporting
+ the following standard wire filter attributes:
+ </p><ul>
+ <li>{@link #WIREVALUE_CURRENT} - Current value</li>
+ <li>{@link #WIREVALUE_PREVIOUS} - Previous value</li>
+ <li>{@link #WIREVALUE_DELTA_ABSOLUTE} - Absolute delta</li>
+ <li>{@link #WIREVALUE_DELTA_RELATIVE} - Relative delta</li>
+ <li>{@link #WIREVALUE_ELAPSED} - Elapsed time</li>
+ </ul>
+   </description>
+<a href='#org.osgi.framework.Filter'>org.osgi.framework.Filter</a>
+     </field>
+    <field name='WIREVALUE_CURRENT' fqn='org.osgi.service.wireadmin.WireConstants.WIREVALUE_CURRENT' qn='WireConstants.WIREVALUE_CURRENT' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wirevalue.current"'>
+   <lead>
+{@code Wire} object's filter attribute (named {@code wirevalue.current})
+ representing the current value.
+   </lead>
+   <description>
+{@code Wire} object's filter attribute (named {@code wirevalue.current})
+ representing the current value.
+   </description>
+
+     </field>
+    <field name='WIREVALUE_PREVIOUS' fqn='org.osgi.service.wireadmin.WireConstants.WIREVALUE_PREVIOUS' qn='WireConstants.WIREVALUE_PREVIOUS' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wirevalue.previous"'>
+   <lead>
+{@code Wire} object's filter attribute (named {@code wirevalue.previous})
+ representing the previous value.
+   </lead>
+   <description>
+{@code Wire} object's filter attribute (named {@code wirevalue.previous})
+ representing the previous value.
+   </description>
+
+     </field>
+    <field name='WIREVALUE_DELTA_ABSOLUTE' fqn='org.osgi.service.wireadmin.WireConstants.WIREVALUE_DELTA_ABSOLUTE' qn='WireConstants.WIREVALUE_DELTA_ABSOLUTE' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wirevalue.delta.absolute"'>
+   <lead>
+{@code Wire} object's filter attribute (named
+ {@code wirevalue.delta.absolute}) representing the absolute delta.
+   </lead>
+   <description>
+{@code Wire} object's filter attribute (named
+ {@code wirevalue.delta.absolute}) representing the absolute delta. The
+ absolute (always positive) difference between the last update and the
+ current value (only when numeric). This attribute must not be used when
+ the values are not numeric.
+   </description>
+
+     </field>
+    <field name='WIREVALUE_DELTA_RELATIVE' fqn='org.osgi.service.wireadmin.WireConstants.WIREVALUE_DELTA_RELATIVE' qn='WireConstants.WIREVALUE_DELTA_RELATIVE' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wirevalue.delta.relative"'>
+   <lead>
+{@code Wire} object's filter attribute (named
+ {@code wirevalue.delta.relative}) representing the relative delta.
+   </lead>
+   <description>
+{@code Wire} object's filter attribute (named
+ {@code wirevalue.delta.relative}) representing the relative delta. The
+ relative difference is |{@code previous}-{@code current} |/|
+ {@code current}| (only when numeric). This attribute must not be used
+ when the values are not numeric.
+   </description>
+
+     </field>
+    <field name='WIREVALUE_ELAPSED' fqn='org.osgi.service.wireadmin.WireConstants.WIREVALUE_ELAPSED' qn='WireConstants.WIREVALUE_ELAPSED' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wirevalue.elapsed"'>
+   <lead>
+{@code Wire} object's filter attribute (named {@code wirevalue.elapsed})
+ representing the elapsed time, in ms, between this filter evaluation and
+ the last update of the {@code Consumer} service.
+   </lead>
+   <description>
+{@code Wire} object's filter attribute (named {@code wirevalue.elapsed})
+ representing the elapsed time, in ms, between this filter evaluation and
+ the last update of the {@code Consumer} service.
+   </description>
+
+     </field>
+    <field name='WIREADMIN_PRODUCER_FILTERS' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_PRODUCER_FILTERS' qn='WireConstants.WIREADMIN_PRODUCER_FILTERS' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wireadmin.producer.filters"'>
+   <lead>
+Service Registration property (named {@code wireadmin.producer.filters}).
+   </lead>
+   <description>
+Service Registration property (named {@code wireadmin.producer.filters}).
+ A {@code Producer} service registered with this property indicates to the
+ Wire Admin service that the Producer service implements at least the
+ filtering as described for the {@link #WIREADMIN_FILTER} property. If the
+ Producer service is not registered with this property, the {@code Wire}
+ object must perform the basic filtering as described in
+ {@link #WIREADMIN_FILTER}.
+ 
+ <p>
+ The type of the property value is not relevant. Only its presence is
+ relevant.</p>
+   </description>
+
+     </field>
+    <field name='WIREADMIN_CONSUMER_FLAVORS' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_CONSUMER_FLAVORS' qn='WireConstants.WIREADMIN_CONSUMER_FLAVORS' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wireadmin.consumer.flavors"'>
+   <lead>
+Service Registration property (named {@code wireadmin.consumer.flavors})
+ specifying the list of data types understood by this Consumer service.
+   </lead>
+   <description>
+Service Registration property (named {@code wireadmin.consumer.flavors})
+ specifying the list of data types understood by this Consumer service.
+ 
+ <p>
+ The Consumer service object must be registered with this service
+ property. The list must be in the order of preference with the first type
+ being the most preferred. The value of the property must be of type
+ {@code Class[]}.</p>
+   </description>
+
+     </field>
+    <field name='WIREADMIN_PRODUCER_FLAVORS' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_PRODUCER_FLAVORS' qn='WireConstants.WIREADMIN_PRODUCER_FLAVORS' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wireadmin.producer.flavors"'>
+   <lead>
+Service Registration property (named {@code wireadmin.producer.flavors})
+ specifying the list of data types available from this Producer service.
+   </lead>
+   <description>
+Service Registration property (named {@code wireadmin.producer.flavors})
+ specifying the list of data types available from this Producer service.
+ 
+ <p>
+ The Producer service object should be registered with this service
+ property.
+ 
+ </p><p>
+ The value of the property must be of type {@code Class[]}.</p>
+   </description>
+
+     </field>
+    <field name='WIREADMIN_EVENTS' fqn='org.osgi.service.wireadmin.WireConstants.WIREADMIN_EVENTS' qn='WireConstants.WIREADMIN_EVENTS' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"wireadmin.events"'>
+   <lead>
+Service Registration property (named {@code wireadmin.events}) specifying
+ the {@code WireAdminEvent} type of interest to a Wire Admin Listener
+ service.
+   </lead>
+   <description>
+Service Registration property (named {@code wireadmin.events}) specifying
+ the {@code WireAdminEvent} type of interest to a Wire Admin Listener
+ service. The value of the property is a bitwise OR of all the
+ {@code WireAdminEvent} types the Wire Admin Listener service wishes to
+ receive and must be of type {@code Integer}.
+   </description>
+<a href='#WireAdminEvent'>WireAdminEvent</a>
+     </field>
+  </class>
+  <class name='WirePermission' fqn='org.osgi.service.wireadmin.WirePermission' qn='WirePermission' package='org.osgi.service.wireadmin' typeParam='' modifiers='public final class' superclass='BasicPermission' kind='CLASS'>
+   <lead>
+Permission for the scope of a {@code Wire} object.
+   </lead>
+   <description>
+Permission for the scope of a {@code Wire} object. When a {@code Envelope}
+ object is used for communication with the {@code poll} or {@code update}
+ method, and the scope is set, then the {@code Wire} object must verify that
+ the Consumer service has {@code WirePermission[name,CONSUME]} and the
+ Producer service has {@code WirePermission[name,PRODUCE]} for all names in
+ the scope.
+ <p>
+ The names are compared with the normal rules for permission names. This means
+ that they may end with a "*" to indicate wildcards. E.g. Door.* indicates all
+ scope names starting with the string "Door". The last period is required due
+ to the implementations of the {@code BasicPermission} class.</p>
+   </description>
+<ThreadSafe></ThreadSafe><author>@author $Id: c2ef56aee74b62f072ac0fa044d26e9869be50a8 $</author>
+    <method name='WirePermission' fqn='org.osgi.service.wireadmin.WirePermission.WirePermission' qn='WirePermission.WirePermission(String,String)' package='org.osgi.service.wireadmin' typeArgs='' modifiers='public' signature='(java.lang.String,java.lang.String)' flatSignature='(String,String)' isConstructor='true'>
+   <lead>
+Create a new WirePermission with the given name (may be wildcard) and
+ actions.
+   </lead>
+   <description>
+Create a new WirePermission with the given name (may be wildcard) and
+ actions.
+   </description>
+
+<param name='name'>Wire name.</param>
+<param name='actions'>{@code produce}, {@code consume} (canonical order).</param>
+
+
+
+
+    <parameter name='name' dimension='' typeName='String' fqn='java.lang.String' varargs='false'/>
+    <parameter name='actions' dimension='' typeName='String' fqn='java.lang.String' varargs='false'/>
+     </method>
+    <method name='implies' fqn='org.osgi.service.wireadmin.WirePermission.implies' qn='WirePermission.implies(Permission)' package='org.osgi.service.wireadmin' modifiers='public' typeName='boolean' qualifiedTypeName='boolean' typeArgs='' dimension='' signature='(java.security.Permission)' flatSignature='(Permission)'>
+<java.lang.Override></java.lang.Override>
+   <lead>
+Checks if this {@code WirePermission} object {@code implies} the
+ specified permission.
+   </lead>
+   <description>
+Checks if this {@code WirePermission} object {@code implies} the
+ specified permission.
+ <p>
+ More specifically, this method returns {@code true} if:
+ </p><p>
+ </p><ul>
+ <li><i>p</i> is an instanceof the {@code WirePermission} class,</li>
+ <li><i>p</i>'s actions are a proper subset of this object's actions, and</li>
+ <li><i>p</i>'s name is implied by this object's name. For example,
+ {@code java.*} implies {@code java.home}.</li>
+ </ul>
+   </description>
+
+<param name='p'>The permission to check against.</param>
+
+<return>{@code true} if the specified permission is implied by this
+         object; {@code false} otherwise.</return>
+
+
+
+    <parameter name='p' dimension='' typeName='Permission' fqn='java.security.Permission' varargs='false'/>
+     </method>
+    <method name='getActions' fqn='org.osgi.service.wireadmin.WirePermission.getActions' qn='WirePermission.getActions()' package='org.osgi.service.wireadmin' modifiers='public' typeName='String' qualifiedTypeName='java.lang.String' typeArgs='' dimension='' signature='()' flatSignature='()'>
+<java.lang.Override></java.lang.Override>
+   <lead>
+Returns the canonical string representation of the actions.
+   </lead>
+   <description>
+Returns the canonical string representation of the actions. Always
+ returns present actions in the following order: {@code produce},
+ {@code consume}.
+   </description>
+
+
+<return>The canonical string representation of the actions.</return>
+
+
+
+     </method>
+    <method name='newPermissionCollection' fqn='org.osgi.service.wireadmin.WirePermission.newPermissionCollection' qn='WirePermission.newPermissionCollection()' package='org.osgi.service.wireadmin' modifiers='public' typeName='PermissionCollection' qualifiedTypeName='java.security.PermissionCollection' typeArgs='' dimension='' signature='()' flatSignature='()'>
+<java.lang.Override></java.lang.Override>
+   <lead>
+Returns a new {@code PermissionCollection} object for storing
+ {@code WirePermission} objects.
+   </lead>
+   <description>
+Returns a new {@code PermissionCollection} object for storing
+ {@code WirePermission} objects.
+   </description>
+
+
+<return>A new {@code PermissionCollection} object suitable for storing
+         {@code WirePermission} objects.</return>
+
+
+
+     </method>
+    <method name='equals' fqn='org.osgi.service.wireadmin.WirePermission.equals' qn='WirePermission.equals(Object)' package='org.osgi.service.wireadmin' modifiers='public' typeName='boolean' qualifiedTypeName='boolean' typeArgs='' dimension='' signature='(java.lang.Object)' flatSignature='(Object)'>
+<java.lang.Override></java.lang.Override>
+   <lead>
+Determines the equality of two {@code WirePermission} objects.
+   </lead>
+   <description>
+Determines the equality of two {@code WirePermission} objects.
+ 
+ Checks that specified object has the same name and actions as this
+ {@code WirePermission} object.
+   </description>
+
+<param name='obj'>The object to test for equality.</param>
+
+<return>true if {@code obj} is a {@code WirePermission}, and has the same
+         name and actions as this {@code WirePermission} object;
+         {@code false} otherwise.</return>
+
+
+
+    <parameter name='obj' dimension='' typeName='Object' fqn='java.lang.Object' varargs='false'/>
+     </method>
+    <method name='hashCode' fqn='org.osgi.service.wireadmin.WirePermission.hashCode' qn='WirePermission.hashCode()' package='org.osgi.service.wireadmin' modifiers='public' typeName='int' qualifiedTypeName='int' typeArgs='' dimension='' signature='()' flatSignature='()'>
+<java.lang.Override></java.lang.Override>
+   <lead>
+Returns the hash code value for this object.
+   </lead>
+   <description>
+Returns the hash code value for this object.
+   </description>
+
+
+<return>Hash code value for this object.</return>
+
+
+
+     </method>
+    <method name='toString' fqn='org.osgi.service.wireadmin.WirePermission.toString' qn='WirePermission.toString()' package='org.osgi.service.wireadmin' modifiers='public' typeName='String' qualifiedTypeName='java.lang.String' typeArgs='' dimension='' signature='()' flatSignature='()'>
+<java.lang.Override></java.lang.Override>
+   <lead>
+Returns a string describing this {@code WirePermission}.
+   </lead>
+   <description>
+Returns a string describing this {@code WirePermission}. The convention
+ is to specify the class name, the permission name, and the actions in the
+ following format: '(org.osgi.service.wireadmin.WirePermission
+ &quot;name&quot; &quot;actions&quot;)'.
+   </description>
+
+
+<return>information about this {@code Permission} object.</return>
+
+
+
+     </method>
+    <field name='PRODUCE' fqn='org.osgi.service.wireadmin.WirePermission.PRODUCE' qn='WirePermission.PRODUCE' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"produce"'>
+   <lead>
+The action string for the {@code produce} action.
+   </lead>
+   <description>
+The action string for the {@code produce} action.
+   </description>
+
+     </field>
+    <field name='CONSUME' fqn='org.osgi.service.wireadmin.WirePermission.CONSUME' qn='WirePermission.CONSUME' package='org.osgi.service.wireadmin' modifiers='public static final' typeName='String' qualifiedTypeName='java.lang.String' dimension='' constantValue='"consume"'>
+   <lead>
+The action string for the {@code consume} action.
+   </lead>
+   <description>
+The action string for the {@code consume} action.
+   </description>
+
+     </field>
+  </class>
+  </package>
+</top>

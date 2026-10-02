@@ -1,0 +1,12 @@
+org/osgi/service/wireadmin/Consumer.class
+org/osgi/service/wireadmin/package-info.class
+org/osgi/service/wireadmin/Producer.class
+org/osgi/service/wireadmin/WireAdminEvent.class
+org/osgi/service/wireadmin/Envelope.class
+org/osgi/service/wireadmin/WirePermissionCollection.class
+org/osgi/service/wireadmin/WirePermission.class
+org/osgi/service/wireadmin/BasicEnvelope.class
+org/osgi/service/wireadmin/WireAdminListener.class
+org/osgi/service/wireadmin/WireAdmin.class
+org/osgi/service/wireadmin/Wire.class
+org/osgi/service/wireadmin/WireConstants.class

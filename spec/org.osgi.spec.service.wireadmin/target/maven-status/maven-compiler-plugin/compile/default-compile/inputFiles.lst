@@ -1,0 +1,11 @@
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java/org/osgi/service/wireadmin/BasicEnvelope.java
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java/org/osgi/service/wireadmin/Consumer.java
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java/org/osgi/service/wireadmin/Envelope.java
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java/org/osgi/service/wireadmin/Producer.java
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java/org/osgi/service/wireadmin/Wire.java
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java/org/osgi/service/wireadmin/WireAdmin.java
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java/org/osgi/service/wireadmin/WireAdminEvent.java
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java/org/osgi/service/wireadmin/WireAdminListener.java
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java/org/osgi/service/wireadmin/WireConstants.java
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java/org/osgi/service/wireadmin/WirePermission.java
+/home/stbischof/git/OSGI_MIGRATE/osgi_target/org.osgi.service.wireadmin/api/src/main/java/org/osgi/service/wireadmin/package-info.java
