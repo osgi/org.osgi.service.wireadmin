@@ -17,8 +17,8 @@
  *******************************************************************************/
 package org.osgi.test.cases.wireadmin.junit;
 
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -34,8 +34,6 @@ import org.osgi.service.wireadmin.Producer;
 import org.osgi.service.wireadmin.Wire;
 import org.osgi.service.wireadmin.WireAdmin;
 import org.osgi.service.wireadmin.WireConstants;
-import org.osgi.test.support.OSGiTestCase;
-import org.osgi.test.support.compatibility.DefaultTestBundleControl;
 
 /**
  * Contains some helper methods for registering/unregistering producers
@@ -83,8 +81,8 @@ public class Helper {
 		p.put(WireConstants.WIREADMIN_CONSUMER_FLAVORS, flavors);
 		ServiceRegistration<Consumer> regConsumer = context
 				.registerService(Consumer.class, consumer, p);
-		assertNull("consumer already registered", consumers.put(
-				consumerPID, regConsumer));
+		assertThat(consumers.put(
+				consumerPID, regConsumer)).as("consumer already registered").isNull();
 	}
 
 	public void registerProducer(String producerPID, Class< ? >[] flavors) {
@@ -102,15 +100,15 @@ public class Helper {
 		p.put(WireConstants.WIREADMIN_PRODUCER_FLAVORS, flavors);
 		ServiceRegistration<Producer> regProducer = context
 				.registerService(Producer.class, producer, p);
-		assertNull("producer already registered", producers.put(
-				producerPID, regProducer));
+		assertThat(producers.put(
+				producerPID, regProducer)).as("producer already registered").isNull();
 	}
 
 	public void modifyProducer(String producerPID,
 			Map<String,Object> properties) {
 		ServiceRegistration<Producer> regProducer = producers
 				.get(producerPID);
-		assertNotNull("modifying non-existant producer", regProducer);
+		assertThat(regProducer).as("modifying non-existant producer").isNotNull();
 		ServiceReference<Producer> ref = regProducer.getReference();
 		Hashtable<String,Object> p = new Hashtable<>();
 		p.put(WireConstants.WIREADMIN_PRODUCER_FLAVORS, ref
@@ -155,7 +153,7 @@ public class Helper {
 			wires = wa.getWires("(org.osgi.test.wireadmin=*)");
 		}
 		catch (InvalidSyntaxException e) { /* no way */
-			OSGiTestCase.fail("unexpected exception", e);
+			fail("unexpected exception", e);
 		}
 		if (wires != null) {
 			for (int counter = 0; counter < wires.length; counter++) {
@@ -200,12 +198,12 @@ public class Helper {
 
 	public Wire createWire(WireAdmin wa, String from, String to,
 			Map<String,Object> map) {
-		DefaultTestBundleControl.log("Wire from " + from + " to " + to + " : " + map);
+		System.out.println("Wire from " + from + " to " + to + " : " + map);
 		Hashtable<String,Object> props = new Hashtable<>();
 		if (map != null) {
 			props.putAll(map);
 		}
-		props.put("org.osgi.test.wireadmin", wac.getName());
+		props.put("org.osgi.test.wireadmin", wac.testMethodName);
 		Wire wire = wa.createWire(from, to, props);
 		return wire;
 	}
@@ -215,7 +213,7 @@ public class Helper {
 		if (map != null) {
 			props.putAll(map);
 		}
-		props.put("org.osgi.test.wireadmin", wac.getName());
+		props.put("org.osgi.test.wireadmin", wac.testMethodName);
 		wa.updateWire(wire, props);
 		return wire;
 	}

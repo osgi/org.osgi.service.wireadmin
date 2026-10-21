@@ -14,13 +14,9 @@
 
 	<properties>
 		<assertj.version>3.23.1</assertj.version>
-		<awaitility.version>4.2.0</awaitility.version>
 		<byte-buddy.version>1.12.10</byte-buddy.version>
-		<hamcrest.version>2.2</hamcrest.version>
 		<junit-jupiter.version>5.12.2</junit-jupiter.version>
 		<junit-platform.version>1.12.2</junit-platform.version>
-		<mockito.version>4.6.1</mockito.version>
-		<objenesis.version>3.2</objenesis.version>
 		<opentest4j.version>1.3.0</opentest4j.version>
 		<org.apache.felix.configadmin.version>1.9.26</org.apache.felix.configadmin.version>
 		<org.apache.felix.scr.version>2.2.10</org.apache.felix.scr.version>
@@ -35,7 +31,7 @@
 		<org.osgi.service.permissionadmin.version>1.2.1</org.osgi.service.permissionadmin.version>
 		<org.osgi.util.function.version>1.2.0</org.osgi.util.function.version>
 		<org.osgi.util.promise.version>1.3.0</org.osgi.util.promise.version>
-		<osgi-test.version>1.2.0</osgi-test.version>
+		<osgi-test.version>1.4.0-SNAPSHOT</osgi-test.version>
 		<servicemix-junit.version>4.13.2_1</servicemix-junit.version>
 	</properties>
 

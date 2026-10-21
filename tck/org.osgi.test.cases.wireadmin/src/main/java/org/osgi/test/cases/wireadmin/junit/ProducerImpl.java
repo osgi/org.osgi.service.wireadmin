@@ -19,7 +19,6 @@ package org.osgi.test.cases.wireadmin.junit;
 
 import org.osgi.service.wireadmin.Producer;
 import org.osgi.service.wireadmin.Wire;
-import org.osgi.test.support.compatibility.DefaultTestBundleControl;
 
 /**
  * A simple producer for test purposes
@@ -38,26 +37,23 @@ public class ProducerImpl implements Producer {
 	@Override
 	public void consumersConnected(Wire[] wires) {
 		if (wac.getProperty("dump.now") != null) {
-			DefaultTestBundleControl
-					.log("**********************************************************************");
-			DefaultTestBundleControl
-					.log("consumersConnected called and will set counter to "
+			System.out.println("**********************************************************************");
+			System.out.println("consumersConnected called and will set counter to "
 							+
 			    		  (wac.synchCounterx + 1));
-			DefaultTestBundleControl.log("producer is: " + pid + " " + hashCode());
+			System.out.println("producer is: " + pid + " " + hashCode());
 		
 			      if (wires != null) {
 			        for (int i = 0; i < wires.length; i++) {
 			          Wire wire = wires[i];
-					DefaultTestBundleControl.log("wire is: " + wire);
-					DefaultTestBundleControl.log("connected: " + wire.isConnected());
-					DefaultTestBundleControl.log("properties: " + wire.getProperties());
+					System.out.println("wire is: " + wire);
+					System.out.println("connected: " + wire.isConnected());
+					System.out.println("properties: " + wire.getProperties());
 			        }
 			      } else {
-				DefaultTestBundleControl.log("wires are null");
+				System.out.println("wires are null");
 			      }
-			DefaultTestBundleControl
-					.log("**********************************************************************");
+			System.out.println("**********************************************************************");
 //		          new Exception("Stack trace").printStackTrace();
             }
 		wac.addInHashtable(pid, wires);

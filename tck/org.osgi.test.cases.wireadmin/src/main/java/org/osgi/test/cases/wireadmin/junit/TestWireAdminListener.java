@@ -17,6 +17,8 @@
  *******************************************************************************/
 package org.osgi.test.cases.wireadmin.junit;
 
+import static org.assertj.core.api.Assertions.fail;
+
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
@@ -24,8 +26,6 @@ import java.util.List;
 import org.osgi.service.wireadmin.Wire;
 import org.osgi.service.wireadmin.WireAdminEvent;
 import org.osgi.service.wireadmin.WireAdminListener;
-import org.osgi.test.support.OSGiTestCase;
-import org.osgi.test.support.compatibility.DefaultTestBundleControl;
 
 /**
  * Used to test the correct event dispatchment within the wire admin as required
@@ -54,47 +54,45 @@ public class TestWireAdminListener implements WireAdminListener {
 		Wire wire = event.getWire();
 		if (wire != null) {
 			// check for right test case
-			if (!wac.getName().equals(
+			if (!wac.testMethodName.equals(
 					wire.getProperties().get("org.osgi.test.wireadmin"))) {
-				DefaultTestBundleControl
-						.log("received an event from a different test case");
+				System.out.println("received an event from a different test case");
 				return;
 			}
 		}
 		try {
 			int type = event.getType();
 			if (dummy) {
-				DefaultTestBundleControl.log("Dummy received an event! Error");
+				System.out.println("Dummy received an event! Error");
 				synchronized (this) {
 					valuesReceived.add(Integer.valueOf(type));
 				}
 				return;
 			}
-			DefaultTestBundleControl.log("received event " + getEventName(type));
+			System.out.println("received event " + getEventName(type));
 			if (wire != null) {
 				Dictionary<String,Object> dict = event.getWire()
 						.getProperties();
 				String prop = (String) dict
 						.get("org.osgi.test.wireadmin.property");
 				if ("42".equals(prop)) {
-					DefaultTestBundleControl.log("wire is OK");
+					System.out.println("wire is OK");
 					synchronized (this) {
 						valuesReceived.add(Integer.valueOf(type));
 					}
 				}
 				else {
-					DefaultTestBundleControl.log("wire is other than expected");
+					System.out.println("wire is other than expected");
 				}
 			}
 			else {
-				DefaultTestBundleControl
-						.log("event.getWire() returned null. No specific wire was responsible for the event");
+				System.out.println("event.getWire() returned null. No specific wire was responsible for the event");
 			}
 
 			if ((event.getType() & (WireAdminEvent.CONSUMER_EXCEPTION | WireAdminEvent.PRODUCER_EXCEPTION)) != 0) {
 				Throwable t = event.getThrowable();
 				if (t == null) {
-					DefaultTestBundleControl.log("Throwable not passed! Error");
+					System.out.println("Throwable not passed! Error");
 					synchronized (this) {
 						valuesReceived.add("no throwable received");
 					}
@@ -104,10 +102,10 @@ public class TestWireAdminListener implements WireAdminListener {
 						valuesReceived.add(t.getMessage());
 					}
 					if ("testing".equals(t.getMessage())) {
-						DefaultTestBundleControl.log("correct Throwable passed! OK");
+						System.out.println("correct Throwable passed! OK");
 					}
 					else {
-						DefaultTestBundleControl.log("wrong Throwable passed! Error");
+						System.out.println("wrong Throwable passed! Error");
 					}
 				}
 			}
@@ -128,13 +126,13 @@ public class TestWireAdminListener implements WireAdminListener {
 				break;
 			}
 			try {
-				DefaultTestBundleControl.log("WireAdminListener waiting for call: "
+				System.out.println("WireAdminListener waiting for call: "
 						+ waitTime);
 				wait(waitTime);
 			}
 			catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
-				OSGiTestCase.fail("Unexepected interruption.", e);
+				fail("Unexepected interruption.", e);
 			}
 		}
 	}

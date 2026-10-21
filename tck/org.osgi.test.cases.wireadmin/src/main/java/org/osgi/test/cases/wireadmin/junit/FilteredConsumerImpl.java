@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.osgi.service.wireadmin.Consumer;
 import org.osgi.service.wireadmin.Wire;
-import org.osgi.test.support.compatibility.DefaultTestBundleControl;
 
 public class FilteredConsumerImpl implements Consumer {
 	private List<Object> valuesReceived = new ArrayList<>();
@@ -31,14 +30,13 @@ public class FilteredConsumerImpl implements Consumer {
 	public void updated(Wire wire, Object value) {
 		if ("42".equals(wire.getProperties().get(
 				"org.osgi.test.wireadmin.property"))) {
-			DefaultTestBundleControl.log("consumer received value " + value);
+			System.out.println("consumer received value " + value);
 			synchronized (this) {
 				valuesReceived.add(value);
 			}
 			return;
 		}
-		DefaultTestBundleControl
-				.log("filter test consumer received update from unkown wire "
+		System.out.println("filter test consumer received update from unkown wire "
 						+ wire + " value is " + value);
 	}
 
