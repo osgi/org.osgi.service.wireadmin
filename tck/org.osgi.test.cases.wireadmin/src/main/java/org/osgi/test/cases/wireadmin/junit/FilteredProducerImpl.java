@@ -19,7 +19,6 @@ package org.osgi.test.cases.wireadmin.junit;
 
 import org.osgi.service.wireadmin.Producer;
 import org.osgi.service.wireadmin.Wire;
-import org.osgi.test.support.sleep.Sleep;
 
 public class FilteredProducerImpl implements Producer {
 	private volatile Wire	wire	= null;
@@ -52,7 +51,7 @@ public class FilteredProducerImpl implements Producer {
 			wire.update(Integer.valueOf(i));
 			processTime = System.currentTimeMillis() - processTime;
 			try {
-				Sleep.sleep(delay - processTime);
+				Thread.sleep(delay - processTime);
 			}
 			catch (InterruptedException e) {
 				// ignore
