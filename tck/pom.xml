@@ -22,7 +22,7 @@
 		<org.osgi.framework.version>1.10.0</org.osgi.framework.version>
 		<org.osgi.service.cm.version>1.6.0</org.osgi.service.cm.version>
 		<org.osgi.service.component.version>1.5.1</org.osgi.service.component.version>
-		<org.osgi.service.event.version>1.4.0</org.osgi.service.event.version>
+		<org.osgi.service.event.version>1.4.1</org.osgi.service.event.version>
 		<org.osgi.service.permissionadmin.version>1.2.1</org.osgi.service.permissionadmin.version>
 		<org.osgi.util.function.version>1.2.0</org.osgi.util.function.version>
 		<org.osgi.util.promise.version>1.3.0</org.osgi.util.promise.version>
