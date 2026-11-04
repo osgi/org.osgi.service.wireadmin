@@ -13,7 +13,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<org.apache.felix.configadmin.version>1.9.26</org.apache.felix.configadmin.version>
+		<org.apache.felix.configadmin.version>1.10.0</org.apache.felix.configadmin.version>
 		<org.apache.felix.scr.version>2.2.18</org.apache.felix.scr.version>
 		<org.eclipse.equinox.event.version>1.7.300</org.eclipse.equinox.event.version>
 		<org.eclipse.equinox.util.version>1.1.300</org.eclipse.equinox.util.version>
